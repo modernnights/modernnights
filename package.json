@@ -2,9 +2,10 @@
   "name": "modernnights",
   "version": "0.0.1",
   "description": "A character generation app for classic World of Darkness 20th anniversary edition",
-  "main": "index.js",
+  "main": "server/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server/index.js"
   },
   "repository": {
     "type": "git",
@@ -15,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/modernnights/modernnights/issues"
   },
-  "homepage": "https://github.com/modernnights/modernnights#readme"
+  "homepage": "https://github.com/modernnights/modernnights#readme",
+  "dependencies": {
+    "express": "^4.13.4"
+  }
 }
