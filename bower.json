@@ -1,0 +1,22 @@
+{
+  "name": "modernnights",
+  "description": "A character generation app for classic World of Darkness 20th anniversary edition",
+  "main": "index.js",
+  "authors": [
+    "jake-shasteen"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/modernnights/modernnights",
+  "moduleType": [
+    "es6",
+    "node"
+  ],
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
