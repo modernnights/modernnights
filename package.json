@@ -18,6 +18,9 @@
   },
   "homepage": "https://github.com/modernnights/modernnights#readme",
   "dependencies": {
-    "express": "^4.13.4"
+    "body-parser": "^1.15.0",
+    "express": "^4.13.4",
+    "jwt-simple": "^0.5.0",
+    "morgan": "^1.7.0"
   }
 }
