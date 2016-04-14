@@ -3,6 +3,8 @@
 const express = require( 'express' );
 const app = express();
 const http = require( 'http' ).Server( app );
+const db = require( './config/db' );
+const Player = require( './players/players' )( db );
 
 const PORT = process.env.PORT || 3000;
 
