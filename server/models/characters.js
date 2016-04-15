@@ -17,6 +17,8 @@ module.exports = function( sequelize, DataTypes ) {
         Character.belongsTo( models.Archetype, {as: 'Nature'} );
         Character.belongsTo( models.Archetype, {as: 'Demeanor'} );
         Character.belongsTo( models.Path );
+        Character.belongsToMany( models.Org, {through: models.CharacterOrg} );
+        Character.belongsToMany( models.Pool, {through: models.CharacterPool} );
       }
     }
   });
