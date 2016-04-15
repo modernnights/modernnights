@@ -7,7 +7,7 @@ module.exports = function( sequelize, DataTypes ) {
   }, {
     classMethods: {
       associate: function( models ) {
-        Stat.belongsTo( models.StatType );
+        Stat.belongsTo( models.StatType, {constraints: false} );
         Stat.belongsToMany( models.Character, {through: models.CharacterStats} );
         Stat.belongsToMany( models.Monster, {through: models.MonsterStats} );
       }

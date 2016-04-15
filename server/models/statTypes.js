@@ -6,7 +6,7 @@ module.exports = function( sequelize, DataTypes ) {
   }, {
     classMethods: {
       associate: function( models ) {
-        StatType.belongsTo( models.StatType, {as: 'parent_type'} );
+        StatType.belongsTo( models.StatType, {as: 'parent_type', constraints: false} );
       }
     }
   });

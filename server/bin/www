@@ -7,11 +7,11 @@ const http = require( 'http' ).Server( app );
 
 app.set( 'port', process.env.PORT || 3000 );
 
-const server = http.listen( app.get( 'port' ) );
-
 models.sequelize.sync().then( function () {
-  server.on( 'error', onError );
-  console.log( 'Express server listening on port ' + server.address().port );
+  const server = http.listen( app.get( 'port' ), function() {
+    server.on( 'error', onError );
+    console.log( 'Express server listening on port ' + server.address().port );
+  });
 });
 
 const onError = function( error ) {

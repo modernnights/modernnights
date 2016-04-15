@@ -2,9 +2,9 @@
 
 module.exports = function( sequelize, DataTypes ) {
   var Spread = sequelize.define( "Spread", {
-    primary: DataType.INTEGER,
-    secondary: DataType.INTEGER,
-    tertiary: DataType.INTEGER,
+    primary: DataTypes.INTEGER,
+    secondary: DataTypes.INTEGER,
+    tertiary: DataTypes.INTEGER,
   });
 
   return Spread;

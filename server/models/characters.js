@@ -13,7 +13,7 @@ module.exports = function( sequelize, DataTypes ) {
       associate: function( models ) {
         Character.belongsTo( models.Player );
         Character.belongsTo( models.Monster );
-        Character.belongsTo( models.Character, {as: 'Sire'} );
+        Character.belongsTo( models.Character, {as: 'Sire', constraints: false} );
         Character.belongsTo( models.Archetype, {as: 'Nature'} );
         Character.belongsTo( models.Archetype, {as: 'Demeanor'} );
         Character.belongsTo( models.Path );

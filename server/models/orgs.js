@@ -7,7 +7,7 @@ module.exports = function( sequelize, DataTypes ) {
   }, {
     classMethods: {
       associate: function( models ) {
-        Org.belongsTo( models.Org, {as: 'parent_org'} );
+        Org.belongsTo( models.Org, {as: 'parent_org', constraints: false} );
         Org.belongsToMany( models.Character, {through: models.CharacterOrg} );
       }
     }

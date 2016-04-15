@@ -7,7 +7,7 @@ module.exports = function( sequelize, DataTypes ) {
   }, {
     classMethods: {
       associate: function( models ) {
-        Monster.belongsTo( models.Monster, {as: 'parent_monster'} );
+        Monster.belongsTo( models.Monster, {as: 'parent_monster', constraints: false} );
         Monster.belongsTo( models.Spread, {as: 'attribute_spread'} );
         Monster.belongsTo( models.Spread, {as: 'ability_spread'} );
         Monster.belongsTo( models.Spread, {as: 'background_spread'} );
