@@ -4,10 +4,11 @@ module.exports = function(sequelize, DataTypes) {
   var Player = sequelize.define("Player", {
     username: DataTypes.STRING,
     password: DataTypes.STRING,
+    // todo: default hash password
   }, {
     classMethods: {
       associate: function(models) {
-        Player.hasOne(models.Permission)
+        Player.hasOne(models.Permission);
       }
     }
   });
