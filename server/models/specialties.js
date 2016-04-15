@@ -1,9 +1,15 @@
 "use strict";
 
 module.exports = function( sequelize, DataTypes ) {
-  var Specialties = sequelize.define( "Specialties", {
+  var Specialty = sequelize.define( "Specialty", {
     specialty: DataTypes.STRING,
+  }, {
+    classMethods: {
+      associate: function( models ) {
+        Specialty.belongsTo( models.CharacterStats );
+      }
+    }
   });
 
-  return Specialties;
+  return Specialty;
 };
