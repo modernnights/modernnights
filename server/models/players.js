@@ -8,7 +8,7 @@ module.exports = function(sequelize, DataTypes) {
   }, {
     classMethods: {
       associate: function(models) {
-        Player.hasOne(models.Permission);
+        Player.belongsTo(models.Permission);
       }
     }
   });
