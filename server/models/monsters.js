@@ -1,7 +1,7 @@
 "use strict";
 
-module.exports = function(sequelize, DataTypes) {
-  var Monster = sequelize.define("Monster", {
+module.exports = function( sequelize, DataTypes ) {
+  var Monster = sequelize.define( "Monster", {
     name: DataTypes.STRING,
     rarity: DataTypes.INTEGER,
   }, {
@@ -12,6 +12,7 @@ module.exports = function(sequelize, DataTypes) {
         Monster.belongsTo( models.Spread, {as: 'ability_spread'} );
         Monster.belongsTo( models.Spread, {as: 'background_spread'} );
         Monster.belongsTo( models.Spread, {as: 'power_spread'} );
+        Monster.belongsToMany( models.Stat, {through: models.MonsterStats} );
       }
     }
   });

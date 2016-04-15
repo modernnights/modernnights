@@ -1,7 +1,7 @@
 "use strict";
 
-module.exports = function(sequelize, DataTypes) {
-  var Log = sequelize.define("Log", {
+module.exports = function( sequelize, DataTypes ) {
+  var Log = sequelize.define( "Log", {
     name: DataTypes.STRING,
     description: DataTypes.TEXT,
     xp_change: DataTypes.INTEGER,

@@ -19,6 +19,7 @@ module.exports = function( sequelize, DataTypes ) {
         Character.belongsTo( models.Path );
         Character.belongsToMany( models.Org, {through: models.CharacterOrg} );
         Character.belongsToMany( models.Pool, {through: models.CharacterPool} );
+        Character.belongsToMany( models.Stat, {through: models.CharacterStats} );
       }
     }
   });
