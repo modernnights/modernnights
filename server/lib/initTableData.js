@@ -1,24 +1,97 @@
 'use strict';
 
 module.exports = function( models ) {
-  // todo: make this happen just once
-  models.Permission.create({
-    name: 'Mortal',
-    readAll: false,
-    writeAll: false,
+  /* Initialize Permissions */
+  models.Permission.findOrCreate({ 
+    where: {
+      name: 'Mortal',
+      readAll: false,
+      writeAll: false,
+    }
   });
-  models.Permission.create({
-    name: 'Royalty',
-    readAll: true,
-    writeAll: false,
+  models.Permission.findOrCreate({
+    where: {
+      name: 'Royalty',
+      readAll: true,
+      writeAll: false,
+    }
   });
-  models.Permission.create({
-    name: 'Wizard',
-    readAll: true,
-    writeAll: true,
+  models.Permission.findOrCreate({
+    where: {
+      name: 'Wizard',
+      readAll: true,
+      writeAll: true,
+    }
   });
-  // todo: bulk-add archetypes
+  /* Archetypes */
+  const archetypes = [
+    'Architect',
+    'Autocrat',
+    'Bon Vivant',
+    'Bravo',
+    'Capitalist',
+    'Caregiver',
+    'Celebrant',
+    'Chameleon',
+    'Child',
+    'Competitor',
+    'Conformist',
+    'Conniver',
+    'Creep Show',
+    'Curmudgeon',
+    'Dabbler',
+    'Deviant',
+    'Director',
+    'Enigma',
+    'Eye of the Storm',
+    'Fanatic',
+    'Gallant',
+    'Guru',
+    'Idealist',
+    'Judge',
+    'Loner',
+    'Martyr',
+    'Masochist',
+    'Monster',
+    'Pedagogue',
+    'Penitent',
+    'Perfectionist',
+    'Rebel',
+    'Rogue',
+    'Sadist',
+    'Scientist',
+    'Sociopath',
+    'Soldier',
+    'Survivor',
+    'Thrill-seeker',
+    'Traditionalist',
+    'Trickster',
+    'Visionary'
+  ];
+  archetypes.forEach( function( archetype ) {
+    models.Archetype.findOrCreate({
+      where: {
+        name: archetype
+      }
+    });
+  })
   // todo: bulk-add stat types
+    // attributes
+      // physical
+      // mental
+      // social
+    // abilities
+      // talents
+      // skills
+      // knowledges
+    // advantages
+      // backgrounds
+      // virtues
+      // disciplines
+      // quirks
+        // merits
+        // flaws
+
   // todo: bulk-add spreads
   // todo: bulk-add stats
   // todo: bulk-add monsters
