@@ -12,6 +12,9 @@ models.sequelize.sync().then( function () {
     server.on( 'error', onError );
     console.log( 'Express server listening on port ' + server.address().port );
   });
+})
+.catch( function( error ) {
+  console.log( error );
 });
 
 const onError = function( error ) {
