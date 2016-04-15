@@ -3,7 +3,7 @@
 /* controllers */
 
 
-const helpers = require( './helpers' );
+const helpers = require( '../lib/helpers' );
 
 module.exports = function ( app, express ) {
   /* WHOAMI */
