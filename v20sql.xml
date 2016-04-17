@@ -37,7 +37,7 @@
     <type label="SET" length="1" sql="SET" quote=""/>
     <type label="Bit" length="0" sql="bit" quote=""/>
   </group>
-</datatypes><table x="251" y="55" name="characters">
+</datatypes><table x="254" y="117" name="characters">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -110,7 +110,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="61" y="7" name="players">
+<table x="18" y="8" name="players">
 <row name="id" null="1" autoincrement="1">
 <datatype>INT</datatype>
 <default>NULL</default></row>
@@ -158,31 +158,28 @@
 <row name="name" null="1" autoincrement="0">
 <datatype>VARCHAR</datatype>
 <default>NULL</default></row>
-<row name="rarity" null="1" autoincrement="0">
-<datatype>INTEGER</datatype>
-<default>NULL</default></row>
 <row name="attribute_spread" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
-<default>NULL</default><relation table="stat_spread" row="id" />
+<default>NULL</default><relation table="spread" row="id" />
 </row>
 <row name="ability_spread" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
-<default>NULL</default><relation table="stat_spread" row="id" />
+<default>NULL</default><relation table="spread" row="id" />
 </row>
 <row name="background_spread" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
-<default>NULL</default><relation table="stat_spread" row="id" />
+<default>NULL</default><relation table="spread" row="id" />
 </row>
-<row name="discipline_spread" null="1" autoincrement="0">
+<row name="power_spread" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
-<default>NULL</default><relation table="stat_spread" row="id" />
+<default>NULL</default><relation table="spread" row="id" />
 </row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
 <comment>e.g. vampire -&gt; assamite -&gt; warrior</comment>
 </table>
-<table x="659" y="94" name="character_stats_specialties">
+<table x="686" y="98" name="specialties">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -197,7 +194,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="181" y="674" name="orgs">
+<table x="38" y="755" name="orgs">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -234,7 +231,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="307" y="630" name="monster_stats">
+<table x="392" y="736" name="monster_stats">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -280,9 +277,6 @@
 <row name="name" null="1" autoincrement="0">
 <datatype>VARCHAR</datatype>
 <default>NULL</default></row>
-<row name="rarity" null="1" autoincrement="0">
-<datatype>INTEGER</datatype>
-<default>NULL</default></row>
 <row name="conviction" null="1" autoincrement="0">
 <datatype>BINARY</datatype>
 <default>NULL</default></row>
@@ -304,15 +298,15 @@
 <part>id</part>
 </key>
 </table>
-<table x="252" y="475" name="character_pools">
+<table x="417" y="577" name="character_pools">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
-<row name="id_characters" null="1" autoincrement="0">
+<row name="id_character" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
 <default>NULL</default><relation table="characters" row="id" />
 </row>
-<row name="id_pools" null="1" autoincrement="0">
+<row name="id_pool" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
 <default>NULL</default><relation table="pools" row="id" />
 </row>
@@ -326,20 +320,13 @@
 <part>id</part>
 </key>
 </table>
-<table x="452" y="6" name="character_log">
+<table x="447" y="6" name="character_log">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
 <row name="description" null="1" autoincrement="0">
 <datatype>VARCHAR</datatype>
 <default>NULL</default></row>
-<row name="xp_change" null="1" autoincrement="0">
-<datatype>INTEGER</datatype>
-<default>NULL</default></row>
-<row name="character_id" null="1" autoincrement="0">
-<datatype>INTEGER</datatype>
-<default>NULL</default><relation table="characters" row="id" />
-</row>
 <row name="player_id" null="1" autoincrement="0">
 <datatype>INT</datatype>
 <default>NULL</default><relation table="players" row="id" />
@@ -347,6 +334,13 @@
 <row name="approved_by_id" null="1" autoincrement="0">
 <datatype>INT</datatype>
 <default>NULL</default><relation table="players" row="id" />
+</row>
+<row name="xp_change" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="character_id" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="characters" row="id" />
 </row>
 <row name="timestamp" null="1" autoincrement="0">
 <datatype>TIMESTAMP</datatype>
@@ -381,7 +375,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="28" y="434" name="stat_spread">
+<table x="26" y="436" name="spread">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -392,6 +386,44 @@
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
 <row name="tertiary" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="234" y="672" name="orgs_paths">
+<row name="id" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="id_orgs" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="orgs" row="id" />
+</row>
+<row name="id_paths" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="paths" row="id" />
+</row>
+<row name="rarity" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="237" y="512" name="orgs_monsters">
+<row name="id" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="id_orgs" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="orgs" row="id" />
+</row>
+<row name="id_ monsters" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table=" monsters" row="id" />
+</row>
+<row name="rarity" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
 <key type="PRIMARY" name="">
