@@ -2,7 +2,10 @@
 
 module.exports = function( sequelize, DataTypes ) {
   var Stat = sequelize.define( "Stat", {
-    name: DataTypes.STRING,
+    name: {
+      type: DataTypes.STRING,
+      unique: true,
+    },
     rarity: DataTypes.INTEGER,
   }, {
     classMethods: {

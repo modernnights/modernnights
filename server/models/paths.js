@@ -2,7 +2,10 @@
 
 module.exports = function( sequelize, DataTypes ) {
   var Path = sequelize.define( "Path", {
-    name: DataTypes.STRING,
+    name: {
+      type: DataTypes.STRING,
+      unique: true,
+    },
     rarity: DataTypes.INTEGER,
     conviction: DataTypes.BOOLEAN,
     instinct: DataTypes.BOOLEAN,

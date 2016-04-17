@@ -2,7 +2,10 @@
 
 module.exports = function( sequelize, DataTypes ) {
   var Player = sequelize.define( "Player", {
-    username: DataTypes.STRING,
+    username: {
+      type: DataTypes.STRING,
+      unique: true,
+    },
     password: DataTypes.STRING,
     // todo: default hash password
   }, {

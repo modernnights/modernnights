@@ -2,7 +2,10 @@
 
 module.exports = function( sequelize, DataTypes ) {
   var Org = sequelize.define( "Org", {
-    name: DataTypes.STRING,
+    name: {
+      type: DataTypes.STRING,
+      unique: true,
+    },
     rarity: DataTypes.INTEGER,
   }, {
     classMethods: {

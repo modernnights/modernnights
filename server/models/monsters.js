@@ -2,7 +2,10 @@
 
 module.exports = function( sequelize, DataTypes ) {
   var Monster = sequelize.define( "Monster", {
-    name: DataTypes.STRING,
+    name: {
+      type: DataTypes.STRING,
+      unique: true,
+    },
     rarity: DataTypes.INTEGER,
   }, {
     classMethods: {

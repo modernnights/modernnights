@@ -2,7 +2,10 @@
 
 module.exports = function( sequelize, DataTypes ) {
   var StatType = sequelize.define( "StatType", {
-    name: DataTypes.STRING,
+    name: {
+      type: DataTypes.STRING,
+      unique: true,
+    },
   }, {
     classMethods: {
       associate: function( models ) {
