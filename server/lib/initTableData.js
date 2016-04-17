@@ -76,33 +76,207 @@ module.exports = function( models ) {
     });
   })
   // todo: bulk-add stat types
-  const types = [
+  const stats = [
     {
       name: 'attributes',
       rest: [
-        { name: 'physical' },
-        { name: 'mental' },
-        { name: 'social' }
+        { 
+          name: 'physical',
+          stats: [
+            {
+              name: 'strength',
+              rarity: 0,
+            },
+            {
+              name: 'dexterity',
+              rarity: 0,
+            },
+            {
+              name: 'stamina',
+              rarity: 0,
+            },
+          ],
+        },
+        {
+          name: 'social',
+          stats: [
+            {
+              name: 'charisma',
+              rarity: 0,
+            },
+            {
+              name: 'manipulation',
+              rarity: 0,
+            },
+            {
+              name: 'appearance',
+              rarity: 0,
+            },
+          ],
+        },
+        {
+          name: 'mental',
+          stats: [
+            {
+              name: 'perception',
+              rarity: 0,
+            },
+            {
+              name: 'intelligence',
+              rarity: 0,
+            },
+            {
+              name: 'wits',
+              rarity: 0,
+            },
+          ],
+        }
       ]
     },
     {
       name: 'abilities',
       rest: [
-        { name: 'talents' },
-        { name: 'skills' },
-        { name: 'knowledges' }
+        {
+          name: 'talents',
+          stats: [
+            'alertness',
+            'athletics',
+            'awareness',
+            'brawl',
+            'empathy',
+            'expression',
+            'intimidation',
+            'leadership',
+            'streetwise',
+            'subterfuge'
+          ],
+        },
+        {
+          name: 'skills',
+          stats: [
+            'animal ken',
+            'crafts',
+            'drive',
+            'etiquette',
+            'firearms',
+            'larceny',
+            'melee',
+            'performance',
+            'stealth',
+            'survival'
+          ],
+        },
+        {
+          name: 'knowledges',
+          stats: [
+            'academics',
+            'computer',
+            'finance',
+            'investigation',
+            'law',
+            'medicine',
+            'occult',
+            'politics',
+            'science',
+            'technology'
+          ],
+        }
       ]
     },
     {
       name: 'advantages',
       rest: [
         { name: 'backgrounds' },
-        { name: 'virtues' },
+        {
+          name: 'virtues',
+          stats: [
+            'conscience',
+            'self-control',
+            'courage',
+            'conviction',
+            'instinct'
+          ],
+        },
         { 
           name: 'powers',
           rest: [
-            { name: 'disciplines' }
-          ]
+            {
+              name: 'disciplines',
+              stats: [
+                { name: 'abombwe', rarity: 11 },
+                'animalism',
+                'auspex',
+                { name: 'bardo', rarity: 11 },
+                'celerity',
+                'chimerstry',
+                { name: 'daimonion', rarity: 11 },
+                'dementation',
+                'dominate',
+                { name: 'flight', rarity: 11 },
+                'fortitude',
+                { name: 'melpominee', rarity: 11 },
+                { name: 'mytherceria', rarity: 11 },
+                'necromancy',
+                { name: 'obeah', rarity: 11 },
+                'obfuscate',
+                'obtenebration',
+                'potence',
+                'presence',
+                'protean',
+                'quietus',
+                { name: 'sanguinus', rarity: 11 },
+                'serpentis',
+                { name: 'spiritus', rarity: 11 },
+                { name: 'temporis', rarity: 11 },
+                { name: 'thanatosis', rarity: 11 },
+                'thaumaturgy',
+                { name: 'valeren', rarity: 11 },
+                'vicissitude',
+                { name: 'visceratika', rarity: 11 },
+              ],
+            },
+            {
+              name: 'thaumaturgy paths',
+              stats: [
+                'the path of blood',
+              ],
+            },
+            {
+              name: 'thaumaturgy rituals',
+              rest: [
+                {
+                  name: 'thaumaturgy rituals 1',
+                  stats: [
+                    'bind the accusing tongue',
+                  ],
+                },
+                {
+                  name: 'thaumaturgy rituals 2',
+                  stats: [
+                    'blood walk',
+                  ],
+                },
+                {
+                  name: 'thaumaturgy rituals 3',
+                  stats: [
+                    'amulet of mnemosyne',
+                  ],
+                },
+                {
+                  name: 'thaumaturgy rituals 4',
+                  stats: [
+                    'bone of lies',
+                  ],
+                },
+                {
+                  name: 'thaumaturgy rituals 5',
+                  stats: [
+                    'abandon the fetters',
+                  ],
+                },
+              ],
+            },
+          ],
         },
         {
           name: 'quirks',
@@ -114,6 +288,17 @@ module.exports = function( models ) {
       ]
     }
   ];
+  const addStat = function( type, stat ) {
+    const id = type.get( 'id' );
+
+    models.Stat.findOrCreate({
+      where: {
+        name: stat.name || stat,
+        stat_type_id: id,
+        rarity: stat.rarity || 0,
+      }
+    })
+  };
   const addTypes = function( types, prevID ) {
     types.forEach( function( type ) {
       models.StatType.findOrCreate({
@@ -125,10 +310,15 @@ module.exports = function( models ) {
         if( type.rest ) {
           addTypes( type.rest, instance.get('id') );
         }
+        if( type.stats ) {
+          type.stats.forEach( function( stat ) {
+            addStat( instance, stat );
+          });
+        }
       })
     });
   }
-  addTypes( types, null );
+  addTypes( stats, null );
   // todo: bulk-add spreads
   const spreads = [
     [7, 5, 3],
@@ -149,7 +339,38 @@ module.exports = function( models ) {
       }
     })
   });
-  // todo: bulk-add stats
+    // alertness
+    // athletics
+    // awareness
+    // brawl
+    // empathy
+    // expression
+    // intimidation
+    // leadership
+    // streetwise
+    // subterfuge
+    // animal ken
+    // crafts
+    // drive
+    // etiquette
+    // firearms
+    // larceny
+    // melee
+    // performance
+    // stealth
+    // survival
+    // academics
+    // computer
+    // finance
+    // investigation
+    // law
+    // medicine
+    // occult
+    // politics
+    // science
+    // technology
+
+
   // todo: bulk-add monsters
     // mortal
       // werewolf
@@ -161,5 +382,6 @@ module.exports = function( models ) {
     // Where do ghoul and revenant sit?
 
   // todo: bulk-add orgs
+
 
 }
