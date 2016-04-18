@@ -230,9 +230,9 @@ module.exports = function( models ) {
                 { name: 'temporis', rarity: 11 },
                 { name: 'thanatosis', rarity: 11 },
                 'thaumaturgy',
-                { name: 'valeren', rarity: 11 },
+                'valeren',
                 'vicissitude',
-                { name: 'visceratika', rarity: 11 },
+                'visceratika',
               ],
             },
             {
@@ -330,6 +330,7 @@ module.exports = function( models ) {
     [5, 0, 0],
     [2, 0, 0]
   ];
+  
   spreads.forEach( function( spread ) {
     models.Spread.findOrCreate({
       where: {
@@ -339,37 +340,6 @@ module.exports = function( models ) {
       }
     })
   });
-    // alertness
-    // athletics
-    // awareness
-    // brawl
-    // empathy
-    // expression
-    // intimidation
-    // leadership
-    // streetwise
-    // subterfuge
-    // animal ken
-    // crafts
-    // drive
-    // etiquette
-    // firearms
-    // larceny
-    // melee
-    // performance
-    // stealth
-    // survival
-    // academics
-    // computer
-    // finance
-    // investigation
-    // law
-    // medicine
-    // occult
-    // politics
-    // science
-    // technology
-
 
   // todo: bulk-add monsters
     // mortal
