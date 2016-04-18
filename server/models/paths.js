@@ -6,6 +6,7 @@ module.exports = function( sequelize, DataTypes ) {
       type: DataTypes.STRING,
       unique: true,
     },
+    description: DataTypes.TEXT,
     rarity: DataTypes.INTEGER,
     conviction: DataTypes.BOOLEAN,
     instinct: DataTypes.BOOLEAN,

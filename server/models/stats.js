@@ -7,6 +7,7 @@ module.exports = function( sequelize, DataTypes ) {
       unique: true,
     },
     rarity: DataTypes.INTEGER,
+    description: DataTypes.TEXT,
   }, {
     classMethods: {
       associate: function( models ) {
