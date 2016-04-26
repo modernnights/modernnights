@@ -310,15 +310,15 @@
 <part>id</part>
 </key>
 </table>
-<table x="417" y="577" name="character_pools">
+<table x="415" y="590" name="character_pools">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
-<row name="id_character" null="1" autoincrement="0">
+<row name="character_id" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
 <default>NULL</default><relation table="characters" row="id" />
 </row>
-<row name="id_pool" null="1" autoincrement="0">
+<row name="pool_id" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
 <default>NULL</default><relation table="pools" row="id" />
 </row>
@@ -404,15 +404,15 @@
 <part>id</part>
 </key>
 </table>
-<table x="234" y="672" name="orgs_paths">
+<table x="225" y="632" name="path_rarity">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
-<row name="id_orgs" null="1" autoincrement="0">
+<row name="org_id" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
 <default>NULL</default><relation table="orgs" row="id" />
 </row>
-<row name="id_paths" null="1" autoincrement="0">
+<row name="path_id" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
 <default>NULL</default><relation table="paths" row="id" />
 </row>
@@ -423,17 +423,17 @@
 <part>id</part>
 </key>
 </table>
-<table x="237" y="512" name="orgs_monsters">
+<table x="220" y="482" name="monster_rarity">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
-<row name="id_orgs" null="1" autoincrement="0">
-<datatype>INTEGER</datatype>
-<default>NULL</default><relation table="orgs" row="id" />
-</row>
-<row name="id_ monsters" null="1" autoincrement="0">
+<row name="monster_id" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
 <default>NULL</default><relation table=" monsters" row="id" />
+</row>
+<row name="org_id" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="orgs" row="id" />
 </row>
 <row name="rarity" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
