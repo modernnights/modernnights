@@ -10,6 +10,11 @@ module.exports = function( sequelize, DataTypes ) {
     rarity: DataTypes.INTEGER,
     conviction: DataTypes.BOOLEAN,
     instinct: DataTypes.BOOLEAN,
+  }, {
+    classMethods: {
+      associate: function( models ) {
+      }
+    }
   });
 
   return Path;
