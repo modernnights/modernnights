@@ -5,6 +5,23 @@ A character generator for classic World of Darkness, 20th anniversary edition
 [![Dependency Status](https://david-dm.org/modernnights/modernnights.svg)](https://david-dm.org/modernnights/modernnights)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/modernnights/modernnights/LICENSE)
 
+## Environment Variables
+In order to get this to run you'll have to set several environment variables:
+```
+PORT
+SQLUSER
+SQLPASS
+SQLPORT
+```
+They are pretty self-explanatory.
+Right now `npm start` is set up to run `start_script` which is not included in the repo.
+Currently that consists of the following code:
+```
+#!/bin/bash
+PORT=a_number SQLUSER='a_user_name' SQLPASS='a_password' SQLPORT=a_number ./server/bin/www
+```
+You can use this to set your environment variables if you want. Otherwise, simply `EXPORT` them
+
 ## API endpoints
 ```
 GET    /api/whoami
