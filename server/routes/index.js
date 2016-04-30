@@ -18,7 +18,7 @@ module.exports = function ( app, express ) {
 
   /* MONSTERS */
   app.get( '/api/monsters', monsterController.getMonsters );
-
+  app.get( '/api/monsters/:id', monsterController.getMonsterById );
   /* STATS */
 
   /* POOLS */
