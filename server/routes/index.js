@@ -2,6 +2,7 @@
 
 /* controllers */
 const archetypeController = require( '../controllers/archetypeController' );
+const monsterController = require( '../controllers/monsterController' );
 const playerController = require( '../controllers/playerController' );
 const characterController = require( '../controllers/characterController' );
 const statController = require( '../controllers/statController' );
@@ -16,6 +17,7 @@ module.exports = function ( app, express ) {
   /* CHARACTERS */
 
   /* MONSTERS */
+  app.get( '/api/monsters', monsterController.getMonsters );
 
   /* STATS */
 
