@@ -19,7 +19,11 @@ module.exports = function ( app, express ) {
   /* MONSTERS */
   app.get( '/api/monsters', monsterController.getMonsters );
   app.get( '/api/monsters/:id', monsterController.getMonsterById );
+
   /* STATS */
+  app.get( '/api/stats', statController.getStats );
+  app.get( '/api/stats/:id', statController.getStatById );
+  // app.get( '/api/stats/type/:id', statController.getStatByType );
 
   /* POOLS */
 
