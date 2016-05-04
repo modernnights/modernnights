@@ -15,6 +15,11 @@ module.exports = function ( app, express ) {
   /* PLAYERS */
 
   /* CHARACTERS */
+  // app.get( '/api/characters', characterController.getCharacters );
+  // Should only get characters that the person can see
+  // 'all' if permissions allow for readAll
+  // only characters owned by Player otherwise
+  // none if not logged in
 
   /* MONSTERS */
   app.get( '/api/monsters', monsterController.getMonsters );
@@ -23,7 +28,7 @@ module.exports = function ( app, express ) {
   /* STATS */
   app.get( '/api/stats', statController.getStats );
   app.get( '/api/stats/:id', statController.getStatById );
-  // app.get( '/api/stats/type/:id', statController.getStatByType );
+  app.get( '/api/stats/type/:id', statController.getStatsByType );
 
   /* POOLS */
 
