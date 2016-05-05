@@ -15,7 +15,8 @@ module.exports = function ( app, express ) {
   /* PLAYERS */
 
   /* CHARACTERS */
-  // app.get( '/api/characters', characterController.getCharacters );
+  app.get( '/api/characters', characterController.getCharacters );
+  app.get( '/api/characters/:id', characterController.getCharacterById );
   // Should only get characters that the person can see
   // 'all' if permissions allow for readAll
   // only characters owned by Player otherwise
