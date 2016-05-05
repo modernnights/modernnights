@@ -341,6 +341,30 @@ module.exports = function( models ) {
     })
   });
 
+
+  models.Character.findOrCreate({
+    where: {
+      name: 'Bob Ross',
+      dbref: '#1',
+      xp: 0,
+      freebies: 0,
+      concept: '',
+      path_value: 8,
+    },
+    includes: [{all: true}]
+  }).spread( function( character, created ) {
+    models.Pool.findOrCreate({ where: { name: 'Willpower' } })
+    .spread( function( pool, created ) {
+      models.CharacterPool.findOrCreate( {
+        where: {
+          character_id: character.get('id'),
+          pool_id: pool.get('id'),
+          value: 8,
+          max: 8,
+        }
+      });
+    });
+  })
   // todo: bulk-add monsters
     // mortal
       // werewolf
