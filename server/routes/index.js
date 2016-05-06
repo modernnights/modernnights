@@ -35,7 +35,7 @@ module.exports = function ( app, express ) {
   /* POOLS */
   app.get( '/api/pools', poolController.getPools );
   app.get( '/api/characters/:id/pools', poolController.getCharacterPools );
-  app.get( '/api/characters/:id/pool/:id', poolController.getCharacterPool );
+  app.get( '/api/characters/:cid/pools/:pid', poolController.getCharacterPool );
 
   /* COSTS */
 

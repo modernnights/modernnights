@@ -18,7 +18,12 @@ module.exports = {
   },
 
   getCharacterPools: function( req, res ) {
-    var id = req.params.id;
+    var id = parseInt( req.params.id );
+
+    if( Number.isNaN( id ) ) {
+      res.status( 400 ).send( 'That is not a valid id' );
+      return null;
+    }
 
     Character.findOne({
       where: { id },
@@ -30,6 +35,10 @@ module.exports = {
       attributes: []
     })
     .then( function( data ) {
+      if( data.Pools.length === 0 ) {
+        res.status( 404 ).send( 'No pools found' );
+        return null;
+      }
       res.send( data.Pools );
     }, function( err ) {
       console.log( err );
@@ -37,6 +46,39 @@ module.exports = {
     });
   },
 
-  getCharacterPool: function( req, res ) {}
+  getCharacterPool: function( req, res ) {
+    var cid = req.params.cid;
+    var pid = req.params.pid;
+
+    if( Number.isNaN( cid ) ) {
+      res.status( 400 ).send( 'That is not a valid character id' );
+      return null;
+    }
+    if( Number.isNaN( pid ) ) { 
+      res.status( 400 ).send( 'That is not a valid pool id' );
+      return null;
+    }
+
+    Character.findOne({
+      where: { id: cid },
+      include: [{
+        model: Pool,
+        where: { id: pid },
+        attributes: ['id', 'name', 'description'],
+        through: {attributes: ['max', 'value']}
+      }],
+      attributes: []
+    })
+    .then( function( data ) {
+      if( data === null ) {
+        res.status( 404 ).send( 'That pool does not exist' );
+        return null;
+      }
+      res.send( data.Pools );
+    }, function( err ) {
+      console.log( err );
+      res.status( 500 ).send( 'Internal server error' );
+    })
+  }
 
 }
