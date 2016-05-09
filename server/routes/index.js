@@ -12,7 +12,7 @@ const helpers = require( '../lib/helpers' );
 
 module.exports = function ( app, express ) {
   /* WHOAMI */
-  
+
   /* PLAYERS */
 
   /* CHARACTERS */

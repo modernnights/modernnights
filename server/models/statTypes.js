@@ -6,6 +6,8 @@ module.exports = function( sequelize, DataTypes ) {
       type: DataTypes.STRING,
       unique: true,
     },
+    lft: DataTypes.INTEGER,
+    rgt: DataTypes.INTEGER
   }, {
     classMethods: {
       associate: function( models ) {
@@ -13,6 +15,14 @@ module.exports = function( sequelize, DataTypes ) {
       }
     }
   });
+
+  StatType.traverse = function( id ) {
+    return sequelize.query( 'SELECT node.* FROM StatType AS node, StatType AS parent WHERE node.lft BETWEEN parent.lft AND parent.rgt AND parent.id = `' + id + '` ORDER BY node.lft' );
+  };
+
+  // StatType.addNode = function( id ) {
+    
+  // }
 
   return StatType;
 };
