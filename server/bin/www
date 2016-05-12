@@ -8,7 +8,7 @@ const http = require( 'http' ).Server( app );
 
 app.set( 'port', process.env.PORT || 3000 );
 
-models.sequelize.sync().then( function () {
+models.sequelize.sync({force:true}).then( function () {
   const server = http.listen( app.get( 'port' ), function() {
     initTableData( models );
     server.on( 'error', onError );

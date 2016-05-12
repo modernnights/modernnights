@@ -301,12 +301,14 @@ module.exports = function( models ) {
   };
   const addTypes = function( types, prevID ) {
     types.forEach( function( type ) {
-      models.StatType.findOrCreate({
+        models.StatType.findOrCreateNode({
         where: {
           name: type.name,
           parent_type_id: prevID,
         }
-      }).spread( function( instance ) {
+      })
+      .then( function( instance ) {
+        console.log( '\n\n\n\n-->\nAN INSTANCE\n\n\n\n', instance[instance.length-1], '\n\n\n')
         if( type.rest ) {
           addTypes( type.rest, instance.get('id') );
         }

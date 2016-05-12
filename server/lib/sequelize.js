@@ -9,7 +9,10 @@ var port = process.env.SQLPORT || 3306;
 var sequelize = new Sequelize( 'muxdata', user, password, {
   host: 'localhost',
   port: port,
-  dialect: 'mysql',
+  dialect: 'mariadb',
+  dialectOptions: {
+    multipleStatements: true
+  },
 
   define: {
     underscored: true
