@@ -24,7 +24,6 @@ module.exports = function( sequelize, DataTypes ) {
 
   /* Nested Set methods */
 
-
   /**
    * @param {number} id Origin row ID
    */
@@ -36,7 +35,7 @@ module.exports = function( sequelize, DataTypes ) {
    * @param {number} id Origin row ID
    */
   StatType.pathToLeaves = function( id ) {
-    return sequelize.query( 'SELECT node.* FROM StatTypes AS node, StatTypes AS parent WHERE node.lft BETWEEN parent.lft AND parent.rgt AND parent.id = `' + id + '` ORDER BY node.lft' );
+    return sequelize.query( 'SELECT node.* FROM StatTypes AS node, StatTypes AS parent WHERE node.lft BETWEEN parent.lft AND parent.rgt AND parent.id = ' + id + ' ORDER BY node.lft' );
   };
 
   StatType.allLeaves = function( ) {

@@ -300,6 +300,7 @@ module.exports = function( models ) {
     })
   };
   const addTypes = function( types, prevID ) {
+    // TODO: Refactor forEaches to use promise.each
     types.forEach( function( type ) {
         models.StatType.findOrCreateNode({
         where: {
