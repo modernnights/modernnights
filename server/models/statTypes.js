@@ -51,8 +51,15 @@ module.exports = function( sequelize, DataTypes ) {
                 // If not, insert as first child into that node
                 console.log( '\n\n---> insertIntoEmptyNode\n\n' );
                 StatType.insertIntoEmptyNode( parent_type_id, name )
-                .then( function( result ) {
-                  fulfill( result );
+                .then( function() {
+                  StatType.findOne({
+                    where: { name }
+                  }).then( function( result ) {
+                    fulfill( result );
+                  }, function( err ) {
+                    console.log( err );
+                    reject( err );
+                  });
                 }, function( err ) {
                   console.log( err );
                   reject( err );
@@ -61,8 +68,15 @@ module.exports = function( sequelize, DataTypes ) {
                 // If yes, find children and insert next to last child
                 console.log( '\n\n---> insertNextToNode\n\n' );
                 StatType.insertNextToNode( found[found.length-1].id, name )
-                .then( function( result ) {
-                  fulfill( result );
+                .then( function() {
+                  StatType.findOne({
+                    where: { name }
+                  }).then( function( result ) {
+                    fulfill( result );
+                  }, function( err ) {
+                    console.log( err );
+                    reject( err );
+                  });
                 }, function( err ) {
                   console.log( err );
                   reject( err );
@@ -88,13 +102,13 @@ module.exports = function( sequelize, DataTypes ) {
       id = 'IS NULL';
     }
     // if adding to a node that has no existing children
-    const query = 'LOCK TABLE StatTypes WRITE; SELECT @myLeft := lft FROM StatTypes WHERE id ' + id + '; SELECT @myLeft := IFNULL( @myLeft, 0 ); UPDATE StatTypes SET rgt = rgt + 2 WHERE rgt > @myLeft; UPDATE StatTypes SET lft = lft + 2 WHERE lft > @myLeft; INSERT INTO StatTypes(name, lft, rgt) VALUES("' + name + '", @myLeft + 1, @myLeft + 2); UNLOCK TABLES; SELECT id FROM StatTypes WHERE name = "' + name + '"';
+    const query = 'LOCK TABLE StatTypes WRITE; SELECT @myLeft := lft FROM StatTypes WHERE id ' + id + '; SELECT @myLeft := IFNULL( @myLeft, 0 ); UPDATE StatTypes SET rgt = rgt + 2 WHERE rgt > @myLeft; UPDATE StatTypes SET lft = lft + 2 WHERE lft > @myLeft; INSERT INTO StatTypes(name, lft, rgt) VALUES("' + name + '", @myLeft + 1, @myLeft + 2); UNLOCK TABLES;';
     return sequelize.query( query );
   }
 
   StatType.insertNextToNode = function( id, name ) {
     // if not adding to a node that has no existing children
-    const query = 'LOCK TABLE StatTypes WRITE; SELECT @myRight := rgt FROM StatTypes WHERE id = ' + id + '; UPDATE StatTypes SET rgt = rgt + 2 WHERE rgt > @myRight; UPDATE StatTypes SET lft = lft + 2 WHERE lft > @myRight; INSERT INTO StatTypes(name, lft, rgt) VALUES("' + name + '", @myRight + 1, @myRight + 2); UNLOCK TABLES; SELECT id FROM StatTypes WHERE name = "' + name + '"';
+    const query = 'LOCK TABLE StatTypes WRITE; SELECT @myRight := rgt FROM StatTypes WHERE id = ' + id + '; UPDATE StatTypes SET rgt = rgt + 2 WHERE rgt > @myRight; UPDATE StatTypes SET lft = lft + 2 WHERE lft > @myRight; INSERT INTO StatTypes(name, lft, rgt) VALUES("' + name + '", @myRight + 1, @myRight + 2);';
     return sequelize.query( query );
   }
 
