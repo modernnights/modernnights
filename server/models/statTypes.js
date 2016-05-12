@@ -22,24 +22,23 @@ module.exports = function( sequelize, DataTypes ) {
     }
   });
 
+  StatType.singlePath = function( id ) {
+    return sequelize.query( 'SELECT parent.name FROM StatTypes AS node, StatTypes AS parent WHERE node.lft BETWEEN parent.lft AND parent.rgt AND node.id = ' + id + ' ORDER BY parent.lft;' );
+  }
+
   StatType.traverse = function( id ) {
-    return sequelize.query( 'SELECT node.* FROM StatType AS node, StatType AS parent WHERE node.lft BETWEEN parent.lft AND parent.rgt AND parent.id = `' + id + '` ORDER BY node.lft' );
+    return sequelize.query( 'SELECT node.* FROM StatTypes AS node, StatTypes AS parent WHERE node.lft BETWEEN parent.lft AND parent.rgt AND parent.id = `' + id + '` ORDER BY node.lft' );
   };
 
   StatType.findLeaves = function( ) {
-    return sequelize.query( 'SELECT node.* FROM StatType WHERE node.rgt = node.lft-1' );
+    return sequelize.query( 'SELECT * FROM StatTypes WHERE lft = rgt-1;' );
   };
-
-  StatType.findChildren = function( id ) {
-    return sequelize.query( 'SELECT @myLeft := lft FROM StatTypes ')
-  }
 
   StatType.findOrCreateNode = function( options ) {
     options.where = options.where || {};
     var name = options.where.name || null;
     var parent_type_id = options.where.parent_type_id || null;
 
-    // Return a thenable that contains the tuple [{found object}, <created boolean>]
     return new Promise( function( fulfill, reject ) {
       StatType.findOne( options )
       .then( function( found ) {
@@ -49,7 +48,6 @@ module.exports = function( sequelize, DataTypes ) {
             .then( function( found ) {
               if( found.length === 0 ) {
                 // If not, insert as first child into that node
-                console.log( '\n\n---> insertIntoEmptyNode\n\n' );
                 StatType.insertIntoEmptyNode( parent_type_id, name )
                 .then( function() {
                   StatType.findOne({
@@ -66,7 +64,6 @@ module.exports = function( sequelize, DataTypes ) {
                 });
               } else {
                 // If yes, find children and insert next to last child
-                console.log( '\n\n---> insertNextToNode\n\n' );
                 StatType.insertNextToNode( found[found.length-1].id, name )
                 .then( function() {
                   StatType.findOne({
@@ -84,7 +81,7 @@ module.exports = function( sequelize, DataTypes ) {
               }
             })
         } else {
-          console.log( 'findOne' );
+          // The node already exists
           fulfill( found )
         }
       }, function( err ) {
@@ -96,13 +93,14 @@ module.exports = function( sequelize, DataTypes ) {
   }
 
   StatType.insertIntoEmptyNode = function( id, name ) {
+    var pre = '';
     if( id !== null ) {
-      id = ' = ' + id;
+      pre = ' = ';
     } else {
-      id = 'IS NULL';
+      pre = 'IS ';
     }
     // if adding to a node that has no existing children
-    const query = 'LOCK TABLE StatTypes WRITE; SELECT @myLeft := lft FROM StatTypes WHERE id ' + id + '; SELECT @myLeft := IFNULL( @myLeft, 0 ); UPDATE StatTypes SET rgt = rgt + 2 WHERE rgt > @myLeft; UPDATE StatTypes SET lft = lft + 2 WHERE lft > @myLeft; INSERT INTO StatTypes(name, lft, rgt) VALUES("' + name + '", @myLeft + 1, @myLeft + 2); UNLOCK TABLES;';
+    const query = 'LOCK TABLE StatTypes WRITE; SELECT @myLeft := lft FROM StatTypes WHERE id ' + pre + id + '; SELECT @myLeft := IFNULL( @myLeft, 0 ); UPDATE StatTypes SET rgt = rgt + 2 WHERE rgt > @myLeft; UPDATE StatTypes SET lft = lft + 2 WHERE lft > @myLeft; INSERT INTO StatTypes(name, lft, rgt, parent_type_id) VALUES("' + name + '", @myLeft + 1, @myLeft + 2, ' + id + '); UNLOCK TABLES;';
     return sequelize.query( query );
   }
 

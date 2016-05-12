@@ -308,7 +308,6 @@ module.exports = function( models ) {
         }
       })
       .then( function( instance ) {
-        console.log( '\n\n\n\n-->\nAN INSTANCE\n\n\n\n', instance[instance.length-1], '\n\n\n')
         if( type.rest ) {
           addTypes( type.rest, instance.get('id') );
         }
