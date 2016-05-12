@@ -22,18 +22,30 @@ module.exports = function( sequelize, DataTypes ) {
     }
   });
 
-  StatType.singlePath = function( id ) {
+  /* Nested Set methods */
+
+
+  /**
+   * @param {number} id Origin row ID
+   */
+  StatType.pathToRoot = function( id ) {
     return sequelize.query( 'SELECT parent.name FROM StatTypes AS node, StatTypes AS parent WHERE node.lft BETWEEN parent.lft AND parent.rgt AND node.id = ' + id + ' ORDER BY parent.lft;' );
   }
 
-  StatType.traverse = function( id ) {
+  /**
+   * @param {number} id Origin row ID
+   */
+  StatType.pathToLeaves = function( id ) {
     return sequelize.query( 'SELECT node.* FROM StatTypes AS node, StatTypes AS parent WHERE node.lft BETWEEN parent.lft AND parent.rgt AND parent.id = `' + id + '` ORDER BY node.lft' );
   };
 
-  StatType.findLeaves = function( ) {
+  StatType.allLeaves = function( ) {
     return sequelize.query( 'SELECT * FROM StatTypes WHERE lft = rgt-1;' );
   };
 
+  /**
+   * @param {object} options As options object for sequelize.model.findOrCreate
+   */
   StatType.findOrCreateNode = function( options ) {
     options.where = options.where || {};
     var name = options.where.name || null;
@@ -92,6 +104,10 @@ module.exports = function( sequelize, DataTypes ) {
 
   }
 
+  /**
+   * @param {number} id Parent node ID
+   * @param {string} name Name of stat type to insert
+   */
   StatType.insertIntoEmptyNode = function( id, name ) {
     var pre = '';
     if( id !== null ) {
@@ -104,11 +120,17 @@ module.exports = function( sequelize, DataTypes ) {
     return sequelize.query( query );
   }
 
+  /**
+   * @param {number} id Left node ID
+   * @param {string} name Name of stat type to insert
+   */
   StatType.insertNextToNode = function( id, name ) {
     // if not adding to a node that has no existing children
     const query = 'LOCK TABLE StatTypes WRITE; SELECT @myRight := rgt FROM StatTypes WHERE id = ' + id + '; UPDATE StatTypes SET rgt = rgt + 2 WHERE rgt > @myRight; UPDATE StatTypes SET lft = lft + 2 WHERE lft > @myRight; INSERT INTO StatTypes(name, lft, rgt) VALUES("' + name + '", @myRight + 1, @myRight + 2);';
     return sequelize.query( query );
   }
+
+  /* End Nested Set methods */
 
   return StatType;
 };
