@@ -12,20 +12,29 @@ const helpers = require( '../lib/helpers' );
 
 module.exports = function ( app, express ) {
   /* WHOAMI */
+  app.get( '/api/whoami', playerController.whoami );
 
   /* PLAYERS */
+  app.get( '/api/players', playerController.getPlayers );
 
   /* CHARACTERS */
   app.get( '/api/characters', characterController.getCharacters );
   app.get( '/api/characters/:id', characterController.getCharacterById );
+  // TODO: use mysql ID or Dbref as keys
   // Should only get characters that the person can see
   // 'all' if permissions allow for readAll
   // only characters owned by Player otherwise
   // none if not logged in
+  app.get( '/api/players/:id/characters', characterController.getCharactersByPlayer );
+  app.post( '/api/characters', characterController.makeCharacter );
+  app.put( '/api/characters/:id', characterController.editCharacter );
 
   /* MONSTERS */
   app.get( '/api/monsters', monsterController.getMonsters );
   app.get( '/api/monsters/:id', monsterController.getMonsterById );
+
+  /* COSTS */
+  app.get( '/api/stats/:sid/cost/:mid', statController.getMonsterCosts );
 
   /* STATS */
   app.get( '/api/stats', statController.getStats );
