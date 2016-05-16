@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/modernnights/modernnights.png?label=ready&title=Ready)](https://waffle.io/modernnights/modernnights)
 # Modern Nights
 A character generator for classic World of Darkness, 20th anniversary edition
 
