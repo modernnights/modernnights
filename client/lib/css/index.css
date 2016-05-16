@@ -48,3 +48,14 @@ div {
   font-size: 3rem;
   color: beige;
 }
+
+nav a {
+  margin: 10px 20px;
+}
+
+@media( min-width: 769px ) {
+  nav {
+    display: flex;
+    flex-direction: row-reverse;
+  }
+}

@@ -47,8 +47,8 @@ module.exports = {
   },
 
   getCharacterPool: function( req, res ) {
-    var cid = req.params.cid;
-    var pid = req.params.pid;
+    var cid = parseInt( req.params.cid );
+    var pid = parseInt( req.params.pid );
 
     if( Number.isNaN( cid ) ) {
       res.status( 400 ).send( 'That is not a valid character id' );
