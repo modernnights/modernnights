@@ -1,5 +1,7 @@
 body {
-  background: url('/assets/wall.jpg');
+  background-image: url('/assets/wall.jpg');
+  background-color: #8b0000;
+  background-blend-mode: color-burn;
 }
 
 html, body {
