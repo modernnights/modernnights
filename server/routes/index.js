@@ -7,6 +7,7 @@ const playerController = require( '../controllers/playerController' );
 const characterController = require( '../controllers/characterController' );
 const statController = require( '../controllers/statController' );
 const poolController = require( '../controllers/poolController' );
+const costController = require( '../controllers/costController' );
 
 const helpers = require( '../lib/helpers' );
 
@@ -34,7 +35,7 @@ module.exports = function ( app, express ) {
   app.get( '/api/monsters/:id', monsterController.getMonsterById );
 
   /* COSTS */
-  app.get( '/api/stats/:sname/cost/:mid', statController.getMonsterCosts );
+  app.get( '/api/stats/:sname/cost/:mid', costController.getMonsterCosts );
 
   /* STATS */
   app.get( '/api/stats', statController.getStats );

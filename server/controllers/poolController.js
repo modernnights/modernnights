@@ -81,8 +81,17 @@ module.exports = {
     })
   },
 
+  /**
+   * req.params.cid => Character ID
+   * req.params.pname => Pool name
+   */
   burnPoolOnce: function( req, res ) {},
 
+  /**
+   * req.params.cid => Character ID
+   * req.params.pname => Pool name
+   * req.params.num => Amount to spend
+   */
   burnPool: function( req, res ) {},
 
 }

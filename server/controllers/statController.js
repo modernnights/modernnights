@@ -90,6 +90,4 @@ module.exports = {
     })
   },
 
-  getMonsterCosts: function( req, res ) {},
-
 }
