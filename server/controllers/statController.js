@@ -1,5 +1,6 @@
 const StatType = require( '../models' ).StatType;
 const Stat = require( '../models' ).Stat;
+const errorHandler = require( '../lib/helpers.js' ).errorHandler;
 
 module.exports = {
 
@@ -11,11 +12,11 @@ module.exports = {
         return null;
       }
       res.json( data );
-    }, function( err ) {
-      res.status( 500 ).send( 'Internal server error' );
-    });
+    })
+    .catch( errorHandler );
   },
 
+  // expects 'id' in req.params
   getStatById: function( req, res ) {
     // TODO: find by id or name
     var id = parseInt( req.params.id );
@@ -30,12 +31,29 @@ module.exports = {
         return null;
       }
       res.json( data );
-    }, function( err ) {
-      res.status( 500 ).send( 'Internal server error' );
-    });
+    })
+    .catch( errorHandler );
   },
 
-  getStatByName: function( req, res ) {},
+  // expects 'sname' in req.params
+  getStatByName: function( req, res ) {
+    var name = req.params.sname;
+    if( typeof name !== 'string' ) {
+      res.status( 400 ).send( 'Invalid name' );
+      return null;
+    }
+
+    Stat.findOne( { where: { name } } )
+    .then( function( data ) {
+      if( data === null ) {
+        res.status( 404 ).send( 'No stat found by that name' );
+        return null;
+      }
+      res.json( data );
+    })
+    .catch( errorHandler );
+
+  },
 
   getStatsByType: function( req, res ) {
     //TODO: Find by ID or Name
@@ -66,9 +84,8 @@ module.exports = {
           return null;
         }
         res.json( data );
-      }, function( err ) {
-        res.status( 500 ).send( 'Internal server error' );
-      });
+      })
+      .catch( errorHandler );
       
     })
   },
