@@ -33,6 +33,24 @@ module.exports = {
     function( err ) {
       res.status( 500 ).send( 'Internal server error' );
     });
-  }
+  },
+
+  getCharactersByPlayer: function( req, res ) {},
+
+  makeCharacter: function( req, res ) {},
+
+  editCharacter: function( req, res ) {},
+
+  getCharacterStat: function( req, res ) {},
+
+  editCharacterStat: function( req, res ) {},
+
+  getCharacterSpecialties: function( req, res ) {},
+
+  addCharacterSpecialty: function( req, res ) {},
+
+  editCharacterSpecialty: function( req, res ) {},
+
+  
 
 }

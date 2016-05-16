@@ -79,6 +79,10 @@ module.exports = {
       console.log( err );
       res.status( 500 ).send( 'Internal server error' );
     })
-  }
+  },
+
+  burnPoolOnce: function( req, res ) {},
+
+  burnPool: function( req, res ) {},
 
 }

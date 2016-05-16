@@ -33,6 +33,8 @@ module.exports = {
     function( err ) {
       res.status( 500 ).send( 'Internal server error' );
     });
-  }
+  },
+
+  getArchetypeByName: function( req, res ) {},
 
 }

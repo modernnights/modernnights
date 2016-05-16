@@ -17,7 +17,7 @@ module.exports = {
   },
 
   getStatById: function( req, res ) {
-    //TODO: Find by ID or Name
+    // TODO: find by id or name
     var id = parseInt( req.params.id );
     if( Number.isNaN( id ) ) {
       res.status( 400 ).send( 'Invalid id' );
@@ -34,6 +34,8 @@ module.exports = {
       res.status( 500 ).send( 'Internal server error' );
     });
   },
+
+  getStatByName: function( req, res ) {},
 
   getStatsByType: function( req, res ) {
     //TODO: Find by ID or Name
@@ -69,6 +71,8 @@ module.exports = {
       });
       
     })
-  }
+  },
+
+  getMonsterCosts: function( req, res ) {},
 
 }
