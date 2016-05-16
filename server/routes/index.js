@@ -34,23 +34,32 @@ module.exports = function ( app, express ) {
   app.get( '/api/monsters/:id', monsterController.getMonsterById );
 
   /* COSTS */
-  app.get( '/api/stats/:sid/cost/:mid', statController.getMonsterCosts );
+  app.get( '/api/stats/:sname/cost/:mid', statController.getMonsterCosts );
 
   /* STATS */
   app.get( '/api/stats', statController.getStats );
-  app.get( '/api/stats/:id', statController.getStatById );
+  app.get( '/api/stats/:sname', statController.getStatByName );
   app.get( '/api/stats/type/:id', statController.getStatsByType );
+
+  /* CHARACTER STATS */
+  app.get( '/api/characters/:cid/:sname', characterController.getCharacterStat );
+  app.put( '/api/characters/:cid/:sname', characterController.editCharacterStat );
+  app.get( '/api/characters/:cid/:sname/specialties', characterController.getCharacterSpecialties );
+  app.post( '/api/characters/:cid/:sname/specialties', characterController.addCharacterSpecialty );
+  app.put( '/api/characters/:cid/:sname/specialties/:spid', characterController.editCharacterSpecialty );
 
   /* POOLS */
   app.get( '/api/pools', poolController.getPools );
   app.get( '/api/characters/:id/pools', poolController.getCharacterPools );
-  app.get( '/api/characters/:cid/pools/:pid', poolController.getCharacterPool );
+  app.get( '/api/characters/:cid/pools/:pname', poolController.getCharacterPool );
+  app.post( '/api/characters/:cid/pools/:pname/burn', poolController.burnPoolOnce );
+  app.post( '/api/characters/:cid/pools/:pname/burn/:num', poolController.burnPool );
 
   /* COSTS */
 
   /* ARCHETYPES */
   app.get( '/api/archetypes', archetypeController.getArchetypes );
-  app.get( '/api/archetypes/:id', archetypeController.getArchetypeById );
+  app.get( '/api/archetypes/:name', archetypeController.getArchetypeByName );
 
   // If a request is sent somewhere other than the routes above,
   // send it through our custom error handler
