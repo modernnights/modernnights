@@ -1,10 +1,34 @@
 #!/usr/bin/env nodemon
 
+'use strict';
+
 const app = require( '../app' );
 const models = require( '../models' );
 const initTableData = require( '../lib/initTableData' );
 
 const http = require( 'http' ).Server( app );
+
+if( !process.env.JWT_SECRET ) {
+  console.log( 'ERROR:\n* Make sure to set the JWT_SECRET environment variable. You can use `export JWT_SECRET=aLongUnguessableString` to do this.' );
+  process.exit();
+}
+
+const warnEnvVars = function( vars ) {
+  let didWarn = false;
+  let warnString = '';
+  vars.forEach( function( envVar ) {
+    if( !process.env[envVar] ) {
+      didWarn = true;
+      warnString += '\n* It may be a good idea to set the ' + envVar + ' environment variable. You can use `export ' + envVar + '=<text>` to do this.';
+    }
+  });
+
+  if( didWarn ) {
+    console.log( 'WARNING:', warnString );
+  }
+}
+
+warnEnvVars( ['PORT', 'SQLUSER', 'SQLPASS', 'SQLPORT'] );
 
 app.set( 'port', process.env.PORT || 3000 );
 
