@@ -14,6 +14,8 @@ const helpers = require( '../lib/helpers' );
 module.exports = function ( app, express ) {
   /* WHOAMI */
   app.get( '/api/whoami', playerController.whoami );
+  app.post( '/api/signup', playerController.signup );
+  app.post( '/api/signin', playerController.signin );
 
   /* PLAYERS */
   app.get( '/api/players', playerController.getPlayers );

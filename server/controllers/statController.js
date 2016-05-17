@@ -1,3 +1,5 @@
+'use strict';
+
 const StatType = require( '../models' ).StatType;
 const Stat = require( '../models' ).Stat;
 const errorHandler = require( '../lib/helpers.js' ).errorHandler;
