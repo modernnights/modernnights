@@ -15,7 +15,9 @@ module.exports = {
       }
       res.json( data );
     })
-    .catch( errorHandler );
+    .catch( function( err ) {
+      errorHandler( err, req, res );
+    });
   },
 
   // expects 'id' in req.params
@@ -34,7 +36,9 @@ module.exports = {
       }
       res.json( data );
     })
-    .catch( errorHandler );
+    .catch( function( err ) {
+      errorHandler( err, req, res );
+    });
   },
 
   // expects 'sname' in req.params
@@ -53,7 +57,9 @@ module.exports = {
       }
       res.json( data );
     })
-    .catch( errorHandler );
+    .catch( function( err ) {
+      errorHandler( err, req, res );
+    });
 
   },
 
@@ -87,7 +93,9 @@ module.exports = {
         }
         res.json( data );
       })
-      .catch( errorHandler );
+      .catch( function( err ) {
+        errorHandler( err, req, res );
+      });
       
     })
   },

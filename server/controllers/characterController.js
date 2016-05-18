@@ -10,9 +10,9 @@ module.exports = {
         return null;
       }
       res.json( data );
-    },
-    function( err ) {
-      res.status( 500 ).send( 'Internal server errror' );
+    })
+    .catch( function( err ) {
+      errorHandler( err, req, res );
     });
   },
 
@@ -29,9 +29,9 @@ module.exports = {
         return null;
       }
       res.json( data );
-    },
-    function( err ) {
-      res.status( 500 ).send( 'Internal server error' );
+    })
+    .catch( function( err ) {
+      errorHandler( err, req, res );
     });
   },
 
