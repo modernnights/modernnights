@@ -3,7 +3,7 @@
 const models = require( '../models' );
 const jwt = require( 'jwt-simple' );
 const Player = models.Player;
-const Permissions = models.Permission;
+const Permission = models.Permission;
 const errorHandler = require( '../lib/helpers.js' ).errorHandler;
 
 module.exports = {
@@ -38,11 +38,11 @@ module.exports = {
       if( !user ) {
         // Create a new user!
         let newUser;
-        Permission.findOne( { where: { name: 'Mortal' } } )
+        return Permission.findOne( { where: { name: 'Mortal' } } )
         .then( function( permission ) {
-          newUser = Player.build( {username, password, permission_id: permission.get('id') });
-        })
+          newUser = Player.build({ username, password, permission_id: permission.get('id') });
         return newUser.save(); // send Promise on to next .then
+        })
       } else {
         console.error( 'User exists. Guest tried: ', username, 'with ', req );
         res.status( 400 ).send( 'That user already exists. Did you forget your password?' );
@@ -59,7 +59,9 @@ module.exports = {
       var token = jwt.encode( user, process.env.JWT_SECRET );
       res.json({ token: token });
     })
-    .catch( errorHandler );
+    .catch( function( err ) {
+      errorHandler( err, req, res );
+    });
   },
 
   /**
@@ -90,7 +92,9 @@ module.exports = {
         return null;
       }
     })
-    .catch( errorHandler );
+    .catch( function( err ) {
+      errorHandler( err, req, res );
+    });
   },
 
 }

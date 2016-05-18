@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/modernnights/modernnights#readme",
   "dependencies": {
+    "bcrypt-as-promised": "^1.1.0",
     "body-parser": "^1.15.0",
     "express": "^4.13.4",
     "jwt-simple": "^0.5.0",
