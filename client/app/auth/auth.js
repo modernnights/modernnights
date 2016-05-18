@@ -1,5 +1,5 @@
 
-angular.module('modernnights.auth', [])
+angular.module( 'modernnights.auth', [] )
 
 .controller('AuthController', function ($scope, $window, $location, Auth) {
   $scope.user = {};

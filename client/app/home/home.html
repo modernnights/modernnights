@@ -1,6 +1,7 @@
 <div class="text-outline">
   <nav>
-    <a href="#/signin">signin</a>
+    <a ng-hide="signedin" ng-click="signout()">signout</a>
+    <a ng-show="signedin" href="#/signin">signin</a>
     <a href="#/census">census</a>
   </nav>
   <h1> Modern Nights <h1>
