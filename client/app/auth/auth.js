@@ -7,8 +7,7 @@ angular.module( 'modernnights.auth', [] )
   $scope.signin = function ( isValid ) {
     if ( isValid ) {
       Auth.signin( $scope.user )
-        .then(function( token ) {
-          $window.localStorage.setItem( 'com.modernnights', token );
+        .then( function() {
           $location.path( '/home' );
         })
         .catch( console.error );
@@ -18,8 +17,7 @@ angular.module( 'modernnights.auth', [] )
   $scope.signup = function ( isValid ) {
     if ( isValid ) {
       Auth.signup( $scope.user )
-        .then( function( token ) {
-          $window.localStorage.setItem( 'com.modernnights', token );
+        .then( function() {
           $location.path( '/home' );
         })
         .catch( console.error );
