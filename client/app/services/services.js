@@ -48,12 +48,16 @@ angular.module( 'modernnights.services', [] )
     return !!$window.localStorage.getItem( 'com.modernnights' );
   };
 
-  var setUserName = function( username ) {
-    $window.localStorage.setItem( 'username', username );
-  }
-
   var getUserName = function() {
-    return $window.localStorage.getItem( 'username' ) || null;
+    var data = {};
+    data.token = $window.localStorage.getItem( 'com.modernnights' );
+    return $http({
+      method: 'POST',
+      url: '/api/whoami',
+      data: data,
+    }).then( function( username ) {
+      return username.data;
+    });
   }
 
   var signout = function() {
@@ -70,6 +74,5 @@ angular.module( 'modernnights.services', [] )
     isAuth: isAuth,
     signout: signout,
     getUserName: getUserName,
-    setUserName: setUserName,
   };
 });

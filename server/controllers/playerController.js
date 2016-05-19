@@ -11,7 +11,9 @@ module.exports = {
   /**
    * Responds with current player in json
    */
-  whoami: function ( req, res ) {},
+  whoami: function ( req, res ) {
+    res.send( jwt.decode( req.body.token, process.env.JWT_SECRET ).username );
+  },
 
   /**
    * Responds with all players in json
@@ -41,7 +43,7 @@ module.exports = {
         return Permission.findOne( { where: { name: 'Mortal' } } )
         .then( function( permission ) {
           newUser = Player.build({ username, password, permission_id: permission.get('id') });
-        return newUser.save(); // send Promise on to next .then
+          return newUser.save(); // send Promise on to next .then
         })
       } else {
         console.error( 'User exists. Guest tried: ', username, 'with ', req );

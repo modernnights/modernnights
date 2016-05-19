@@ -43,6 +43,12 @@ body > div {
     -2px -1px 0 #000;
 }
 
+.welcome-message {
+  margin: 10px 20px;
+  font-size: 0.75em;
+  color: antiquewhite;
+}
+
 div {
   text-align: center;
   font-size: 3rem;
