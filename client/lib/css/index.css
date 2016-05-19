@@ -1,5 +1,6 @@
 body {
-  background-image: url('/assets/wall.jpg');
+  background: radial-gradient(ellipse at center, rgba(0,0,0,0) 40%, rgba(0,0,0,1) 100%),
+    url('/assets/wall.jpg');
   background-color: #8b0000;
   background-blend-mode: color-burn;
 }
@@ -55,14 +56,13 @@ div {
   color: beige;
 }
 
-nav a {
-  font-size: 0.75em;
-  margin: 10px 20px;
+nav {
+  display: flex;
+  flex-direction: row-reverse;
 }
 
-@media( min-width: 769px ) {
-  nav {
-    display: flex;
-    flex-direction: row-reverse;
-  }
+nav a {
+  display: block;
+  font-size: 0.75em;
+  margin: 10px 20px;
 }
