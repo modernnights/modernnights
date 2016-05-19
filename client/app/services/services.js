@@ -28,8 +28,12 @@ angular.module( 'modernnights.services', [] )
     return !!$window.localStorage.getItem( 'com.modernnights' );
   };
 
-  var whoami = function() {
-    return $window.localStorage.getItem( 'com.modernnights' ) || null;
+  var setUserName = function( username ) {
+    $window.localStorage.setItem( 'username', username );
+  }
+
+  var getUserName = function() {
+    return $window.localStorage.getItem( 'username' ) || null;
   }
 
   var signout = function() {
@@ -43,6 +47,7 @@ angular.module( 'modernnights.services', [] )
     signup: signup,
     isAuth: isAuth,
     signout: signout,
-    whoami: whoami,
+    getUserName: getUserName,
+    setUserName: setUserName,
   };
 });

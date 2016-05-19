@@ -4,6 +4,7 @@ var app = angular.module( 'modernnights', [
   'modernnights.census',
   'modernnights.auth',
   'modernnights.services',
+  'modernnights.directive',
   ])
 
 .config( function ( $routeProvider, $httpProvider ) {
@@ -25,21 +26,35 @@ var app = angular.module( 'modernnights', [
     controller: 'CensusController',
     authenticate: true,
   })
+  .when( '/roster', {
+    templateUrl: 'app/roster/roster.html',
+    controller: 'RosterController',
+    authenticate: true,
+  })
+  .when( '/connect', {
+    templateUrl: 'app/connect/connect.html',
+    controller: 'ConnectController',
+  })
+  .when( '/chargen', {
+    templateUrl: 'app/chargen/chargen.html',
+    controller: 'ChargenController',
+    authenticate: true,
+  })
   .otherwise({
     redirectTo: '/home',
   })
   // We add our $httpInterceptor into the array
   // of interceptors. Think of it like middleware for your ajax calls
-  $httpProvider.interceptors.push('AttachTokens');
+  $httpProvider.interceptors.push( 'AttachTokens' );
 
 })
-.factory( 'AttachTokens', function ($window) {
+.factory( 'AttachTokens', function( $window ) {
   // this is an $httpInterceptor
   // its job is to stop all out going request
   // then look in local storage and find the user's token
   // then add it to the header so the server can validate the request
   var attach = {
-    request: function (object) {
+    request: function( object ) {
       var jwt = $window.localStorage.getItem( 'com.modernnights' );
       if ( jwt ) {
         object.headers['x-access-token'] = jwt;
@@ -58,7 +73,7 @@ var app = angular.module( 'modernnights', [
   // when it does change routes, we then look for the token in localstorage
   // and send that token to the server to see if it is a real user or hasn't expired
   // if it's not valid, we then redirect back to signin/signup
-  $rootScope.$on( '$routeChangeStart', function ( evt, next, current ) {
+  $rootScope.$on( '$routeChangeStart', function( evt, next, current ) {
     if ( next.$$route && next.$$route.authenticate && !Auth.isAuth() ) {
       $location.path( '/signin' );
     }
