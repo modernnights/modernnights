@@ -1,10 +1,13 @@
 var app = angular.module( 'modernnights', [
   'ngRoute',
-  'modernnights.home',
-  'modernnights.census',
   'modernnights.auth',
-  'modernnights.services',
+  'modernnights.census',
+  'modernnights.chargen',
+  'modernnights.connect',
   'modernnights.directive',
+  'modernnights.home',
+  'modernnights.roster',
+  'modernnights.services',
   ])
 
 .config( function ( $routeProvider, $httpProvider ) {
