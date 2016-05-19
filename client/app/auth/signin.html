@@ -1,9 +1,9 @@
 <div id='signin'>
-  <h1>signin</h1>
+  <h1>Sign In</h1>
   <form name="signinForm" ng-submit='signin( signinForm.$valid )' novalidate>
     <input name="userInput" type='text' ng-model='user.username' ng-class="{ 'error': signinForm.userInput.$invalid && shortenForm.$dirty }" required>
     <input name="pwdInput" type="password" ng-model='user.password' ng-class="{ 'error': signinForm.pwdInput.$invalid && shortenForm.$dirty }" required>
-    <button>signin</button>
+    <button>Sign In</button>
   </form>
-  <a href="#/signup">Don't have an account? <strong>Signup</strong> ...</a>
+  <a href="#/signup">Don't have an account? <strong>Sign Up</strong> ...</a>
 </div>
