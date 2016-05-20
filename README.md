@@ -13,19 +13,22 @@ PORT
 SQLUSER
 SQLPASS
 SQLPORT
+JWT_SECRET
 ```
 They are pretty self-explanatory.
 Right now `npm start` is set up to run `start_script` which is not included in the repo.
 Currently that consists of the following code:
 ```
 #!/bin/bash
-PORT=a_number SQLUSER='a_user_name' SQLPASS='a_password' SQLPORT=a_number ./server/bin/www
+PORT=a_number SQLUSER='a_user_name' SQLPASS='a_password' SQLPORT=a_number ./server/bin/www JWT_SECRET=<a long unguessable string>
 ```
 You can use this to set your environment variables if you want. Otherwise, simply `EXPORT` them
 
 ## API endpoints
 ```
-GET    /api/whoami
+POST   /api/whoami
+POST   /api/signup
+POST   /api/signin
 
 GET    /api/players
 
