@@ -2,6 +2,7 @@ angular.module( 'modernnights.services', [] )
 
 .factory( 'Auth', function( $http, $location, $window ) {
 
+  /* Event system for signing in */
   var onSignInChangeAction;
 
   var onSignInChange = function( callback ) {
@@ -11,6 +12,8 @@ angular.module( 'modernnights.services', [] )
   var signInChange = function() {
     onSignInChangeAction();
   }
+  /* end event system */
+
 
   var signin = function( user ) {
     return $http({
@@ -25,7 +28,9 @@ angular.module( 'modernnights.services', [] )
       $window.localStorage.setItem( 'com.modernnights', token );
       signInChange();
     })
-    .catch( console.error );
+    .catch( function( err ) {
+      console.error( err );
+    } );
   };
 
   var signup = function( user ) {
@@ -35,13 +40,20 @@ angular.module( 'modernnights.services', [] )
       data: user
     })
     .then( function( resp ) {
+      if( resp.status !== 200 ) {
+        return null;
+      }
       return resp.data.token;
     })
     .then( function( token ) {
-      $window.localStorage.setItem( 'com.modernnights', token );
-      signInChange();
+      if( token !== null ) {
+        $window.localStorage.setItem( 'com.modernnights', token );
+        signInChange();
+      }
     })
-    .catch( console.error );
+    .catch( function( err ) {
+      console.error( err );
+    } );
   };
 
   var isAuth = function () {
@@ -51,13 +63,20 @@ angular.module( 'modernnights.services', [] )
   var getUserName = function() {
     var data = {};
     data.token = $window.localStorage.getItem( 'com.modernnights' );
-    return $http({
-      method: 'POST',
-      url: '/api/whoami',
-      data: data,
-    }).then( function( username ) {
-      return username.data;
-    });
+    if( data.token !== null ) {
+      return $http({
+        method: 'POST',
+        url: '/api/whoami',
+        data: data,
+      }).then( function( username ) {
+        return username.data;
+      });
+    } else {
+      return new Promise( function( resolve, reject ) {
+        resolve( null );
+        reject( null );
+      });
+    }
   }
 
   var signout = function() {

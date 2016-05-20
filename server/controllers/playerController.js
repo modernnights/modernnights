@@ -46,15 +46,17 @@ module.exports = {
           return newUser.save(); // send Promise on to next .then
         })
       } else {
-        console.error( 'User exists. Guest tried: ', username, 'with ', req );
+        console.error( 'User exists. Guest tried: ', username, 'with ', req.body );
         res.status( 400 ).send( 'That user already exists. Did you forget your password?' );
         //TODO: redirect to signin?
-        return null;
+        return "exists";
       }
     })
     .then( function( user ) {
       if( user === null ) {
         res.status( 500 ).send( 'Error creating new user' );
+        return null;
+      } else if ( user === "exists" ) {
         return null;
       }
       // create token to send back for auth
@@ -82,7 +84,7 @@ module.exports = {
           // If they are a match, send a jwt
           // Otherwise, send a 400 code
       } else {
-        console.error( 'User not found. Guest tried: ', username, 'with ', req );
+        console.error( 'User not found. Guest tried: ', username, 'with ', req.body );
         res.status( 404 ).send( 'User not found' );
         return null;
         //TODO: redirect to signup?

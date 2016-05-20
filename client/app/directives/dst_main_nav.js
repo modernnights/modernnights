@@ -4,6 +4,7 @@ angular.module( 'modernnights.directive', [] )
     return {
       restrict: 'E',
       controller: function( $scope, Auth ) {
+
         var getUserName = function() {
           Auth.getUserName()
           .then( function( username ) {
@@ -16,15 +17,12 @@ angular.module( 'modernnights.directive', [] )
           $scope.signedin = Auth.isAuth();
         }();
 
-        
         Auth.onSignInChange( function() {
           $scope.signedin = Auth.isAuth();
           getUserName();
         });
 
-        $scope.signout = function() {
-          Auth.signout();
-        };
+        $scope.signout = Auth.signout;
 
       },
       templateUrl: 'app/directives/dst_main_nav.html'
