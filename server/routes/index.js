@@ -43,6 +43,7 @@ module.exports = function ( app, express ) {
   app.get( '/api/stats', statController.getStats );
   app.get( '/api/stats/:sname', statController.getStatByName );
   app.get( '/api/stats/type/:id', statController.getStatsByType );
+  app.get( '/api/characters/:id/canbuy', statController.canBuy );
 
   /* CHARACTER STATS */
   app.get( '/api/characters/:cid/:sname', characterController.getCharacterStat );
@@ -57,8 +58,6 @@ module.exports = function ( app, express ) {
   app.get( '/api/characters/:cid/pools/:pname', poolController.getCharacterPool );
   app.post( '/api/characters/:cid/pools/:pname/burn', poolController.burnPoolOnce );
   app.post( '/api/characters/:cid/pools/:pname/burn/:num', poolController.burnPool );
-
-  /* COSTS */
 
   /* ARCHETYPES */
   app.get( '/api/archetypes', archetypeController.getArchetypes );

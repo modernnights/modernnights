@@ -100,4 +100,8 @@ module.exports = {
     })
   },
 
+  canBuy: function( req, res ) {
+
+  },
+
 }
