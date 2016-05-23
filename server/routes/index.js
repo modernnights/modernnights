@@ -13,9 +13,22 @@ const helpers = require( '../lib/helpers' );
 
 module.exports = function ( app, express ) {
   /* WHOAMI */
-  app.get( '/api/whoami', playerController.whoami );
   app.post( '/api/signup', playerController.signup );
   app.post( '/api/signin', playerController.signin );
+
+
+  /* Add token on subsequent routes. */
+  app.use( function( req, res, next) {
+    req.token = req.headers["x-access-token"];
+    if( !req.token ) {
+      res.status( 401 ).send( "Unauthorized" );
+      return null;
+    } else {
+      next();
+    }
+  })
+
+  app.get( '/api/whoami', playerController.whoami );
 
   /* PLAYERS */
   app.get( '/api/players', playerController.getPlayers );

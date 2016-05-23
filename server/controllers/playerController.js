@@ -12,13 +12,29 @@ module.exports = {
    * Responds with current player in json
    */
   whoami: function ( req, res ) {
-    res.send( jwt.decode( req.headers["x-access-token"], process.env.JWT_SECRET ).username );
+    res.send( jwt.decode( req.token, process.env.JWT_SECRET ).username );
   },
 
   /**
    * Responds with all players in json
    */
-  getPlayers: function ( req, res ) {},
+  getPlayers: function ( req, res ) {
+    var permission_id = jwt.decode( req.token, process.env.JWT_SECRET ).permission_id;
+    Permission.findById( permission_id )
+    .then( function( permissions ) {
+      if( permissions.readAll ) {
+        Players.findAll()
+        .then( function( players ) {
+          res.json( players );
+        });
+      } else {
+        res.status( 401 ).send( "You are not authorized to do that." );
+      }
+    })
+    .catch( function( err ) {
+      errorHandler( err, req, res );
+    });
+  },
 
   /**
    * Responds with an individual player in json
