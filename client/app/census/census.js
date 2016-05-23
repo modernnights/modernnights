@@ -1,5 +1,8 @@
 angular.module( 'modernnights.census', [] )
 
-.controller( 'CensusController', function( $scope ) {
-
+.controller( 'CensusController', function( Character, $scope ) {
+  Character.getAll()
+  .then( function( characters ) {
+    $scope.characters = characters;
+  });
 });

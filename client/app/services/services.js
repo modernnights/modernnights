@@ -28,8 +28,19 @@ angular.module( 'modernnights.services', [] )
     })
   }
 
+  var getAll = function() {
+    return $http({
+      method: 'GET',
+      url: '/api/characters'
+    })
+    .then( function( resp ) {
+      return resp.data;
+    })
+  }
+
   return {
-    create
+    create,
+    getAll
   }
 })
 
