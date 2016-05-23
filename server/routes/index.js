@@ -18,15 +18,7 @@ module.exports = function ( app, express ) {
 
 
   /* Add token on subsequent routes. */
-  app.use( function( req, res, next) {
-    req.token = req.headers["x-access-token"];
-    if( !req.token ) {
-      res.status( 401 ).send( "Unauthorized" );
-      return null;
-    } else {
-      next();
-    }
-  })
+  app.use( helpers.decode );
 
   app.get( '/api/whoami', playerController.whoami );
 

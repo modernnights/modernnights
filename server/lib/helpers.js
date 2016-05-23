@@ -21,13 +21,13 @@ module.exports = {
     var user;
 
     if ( !token ) {
-      return res.send( 403 ); // send forbidden if a token is not provided
+      return res.status( 403 ).send( "Forbidden" ); // send forbidden if a token is not provided
     }
 
     try {
       // decode token and attach user to the request
       // for use inside our controllers
-      user = jwt.decode( token, 'secret' );
+      user = jwt.decode( token, process.env.JWT_SECRET );
       req.user = user;
       next();
     } catch ( error ) {

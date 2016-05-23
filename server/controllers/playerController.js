@@ -12,14 +12,14 @@ module.exports = {
    * Responds with current player in json
    */
   whoami: function ( req, res ) {
-    res.send( jwt.decode( req.token, process.env.JWT_SECRET ).username );
+    res.send( req.user.username );
   },
 
   /**
    * Responds with all players in json
    */
   getPlayers: function ( req, res ) {
-    var permission_id = jwt.decode( req.token, process.env.JWT_SECRET ).permission_id;
+    var permission_id = req.user.permission_id;
     Permission.findById( permission_id )
     .then( function( permissions ) {
       if( permissions.readAll ) {
@@ -39,7 +39,9 @@ module.exports = {
   /**
    * Responds with an individual player in json
    */
-  getPlayer: function ( req, res ) {},
+  getPlayer: function ( req, res ) {
+
+  },
 
   /**
    * Expects req.body.username => username
