@@ -8,6 +8,7 @@ module.exports = function( sequelize, DataTypes ) {
     freebies: DataTypes.INTEGER,
     concept: DataTypes.STRING,
     path_value: DataTypes.INTEGER,
+    portrait: DataTypes.STRING,
   }, {
     classMethods: {
       associate: function( models ) {

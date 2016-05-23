@@ -3,7 +3,12 @@
 
 <div id='chargen'>
   <form name="chargenForm" ng-submit='chargen( chargenForm.$valid )' novalidate>
-    <input name="nameInput" type='text' ng-model='character.name' ng-class="{ 'error': chargenForm.nameInput.$invalid && shortenForm.$dirty }" required>
+    <ul class="chargen">
+      <li><label for="nameInput">NAME</label><input name="nameInput" type='text' ng-model='character.name' ng-class="{ 'error': chargenForm.nameInput.$invalid && shortenForm.$dirty }" required></li>
+      <li><label for="dbrefInput">DBREF</label><input name="dbrefInput" type='text' ng-model='character.dbref' ng-class="{ 'error': chargenForm.dbrefInput.$invalid && shortenForm.$dirty }" required></li>
+      <li><label for="conceptInput">CONCEPT</label><input name="conceptInput" type='text' ng-model='character.concept' ng-class="{ 'error': chargenForm.conceptInput.$invalid && shortenForm.$dirty }" required></li>
+      <li><label for="xpInput">XP</label><input name="xpInput" type='number' ng-model='character.xp' ng-class="{ 'error': chargenForm.xpInput.$invalid && shortenForm.$dirty }" required></li>
+    </ul>
     <button>Create</button>
   </form>
 

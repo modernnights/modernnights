@@ -38,7 +38,8 @@ module.exports = {
   getCharactersByPlayer: function( req, res ) {},
 
   makeCharacter: function( req, res ) {
-    Character.create({name: req.body.name, player_id: req.user.id})
+    req.body.player_id = req.user.id;
+    Character.create( req.body )
     .then( function( char ) {
       res.status( 201 ).json( char );
     })

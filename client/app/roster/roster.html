@@ -1,4 +1,9 @@
 <h1>Coming Soon...</h1>
 <h3>Character roster</h3>
-<div>{{player}}</div>
-<div>{{characters}}</div>
+<div class="characters">
+  <div class="character" ng-repeat="character in characters track by character.id">
+    <img class="characterPortrait" ng-if="character.portrait" ng-src="{{character.portrait}}">
+    <img class="characterPortrait" ng-if="!character.portrait" src="../assets/character_silhouette.png">
+    <div class="characterName">{{character.name}}</div>
+  </div>
+</div>
