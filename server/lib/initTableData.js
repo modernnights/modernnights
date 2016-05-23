@@ -281,12 +281,28 @@ module.exports = function( models ) {
         {
           name: 'quirks',
           rest: [
-            { name: 'merits' },
-            { name: 'flaws' }
-          ]
-        }
-      ]
-    }
+            { 
+              name: 'merits',
+              stats: [
+                'acute hearing',
+                'common sense',
+                'harmless',
+                'deceptive aura',
+              ]
+            },
+            { 
+              name: 'flaws',
+              stats: [
+                'bad sight',
+                'nightmares',
+                'dark secret',
+                'repulsed by garlic',
+              ],
+            },
+          ],
+        },
+      ],
+    },
   ];
   const addStat = function( type, stat ) {
     const id = type.get( 'id' );
