@@ -12,7 +12,7 @@ module.exports = {
    * Responds with current player in json
    */
   whoami: function ( req, res ) {
-    res.send( jwt.decode( req.body.token, process.env.JWT_SECRET ).username );
+    res.send( jwt.decode( req.headers["x-access-token"], process.env.JWT_SECRET ).username );
   },
 
   /**

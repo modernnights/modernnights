@@ -65,7 +65,7 @@ angular.module( 'modernnights.services', [] )
     data.token = $window.localStorage.getItem( 'com.modernnights' );
     if( data.token !== null ) {
       return $http({
-        method: 'POST',
+        method: 'GET',
         url: '/api/whoami',
         data: data,
       }).then( function( username ) {
