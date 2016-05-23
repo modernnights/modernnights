@@ -24,6 +24,7 @@ module.exports = function ( app, express ) {
 
   /* PLAYERS */
   app.get( '/api/players', playerController.getPlayers );
+  app.get( '/api/player', playerController.getCurrentPlayer );
 
   /* CHARACTERS */
   app.get( '/api/characters', characterController.getCharacters );

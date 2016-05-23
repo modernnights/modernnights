@@ -1,5 +1,38 @@
 angular.module( 'modernnights.services', [] )
 
+.factory( 'Player', function( $http ) {
+  var getPlayerData = function() {
+    return $http({
+      method: 'GET',
+      url: '/api/player'
+    })
+    .then( function( resp ) {
+      console.log( resp );
+      return resp.data;
+    })
+  }
+  return {
+    getPlayerData
+  }
+})
+
+.factory( 'Character', function( $http ) {
+  var create = function( char ) {
+    return $http({
+      method: 'POST',
+      url: '/api/characters',
+      data: char
+    })
+    .then( function( resp ) {
+      return resp.data;
+    })
+  }
+
+  return {
+    create
+  }
+})
+
 .factory( 'Auth', function( $http, $location, $window ) {
 
   /* Event system for signing in */
@@ -87,11 +120,11 @@ angular.module( 'modernnights.services', [] )
 
 
   return {
-    onSignInChange: onSignInChange,
-    signin: signin,
-    signup: signup,
-    isAuth: isAuth,
-    signout: signout,
-    getUserName: getUserName,
+    onSignInChange,
+    signin,
+    signup,
+    isAuth,
+    signout,
+    getUserName,
   };
 });

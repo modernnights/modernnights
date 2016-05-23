@@ -4,6 +4,7 @@ const models = require( '../models' );
 const jwt = require( 'jwt-simple' );
 const Player = models.Player;
 const Permission = models.Permission;
+const Character = models.Character;
 const errorHandler = require( '../lib/helpers.js' ).errorHandler;
 
 module.exports = {
@@ -22,16 +23,17 @@ module.exports = {
     var permission_id = req.user.permission_id;
     Permission.findById( permission_id )
     .then( function( permissions ) {
-      if( permissions.readAll ) {
-        Players.findAll()
+      //if( permissions.readAll ) {
+        Player.findAll({ include: [Permission, Character] })
         .then( function( players ) {
           res.json( players );
         });
-      } else {
-        res.status( 401 ).send( "You are not authorized to do that." );
-      }
+      // } else {
+      //   res.status( 403 ).send( "Forbidden" );
+      // }
     })
     .catch( function( err ) {
+      console.error( err );
       errorHandler( err, req, res );
     });
   },
@@ -40,7 +42,35 @@ module.exports = {
    * Responds with an individual player in json
    */
   getPlayer: function ( req, res ) {
+    var id = parseInt( req.params.id );
+    if( Number.NaN( id ) ) {
+      res.status( 400 ).send( "Not a valid ID" );
+      return null;
+    }
 
+    Permission.findById( req.user.permission_id )
+    .then( function( permissions ) {
+      if( permissions.readAll || id === req.user.id ) {
+        Player.findById( id, { include: [Permission, Character] } )
+        .then( function( player ) {
+          res.send( player )
+        })
+      } else {
+        res.status( 403 ).send( "Forbidden" );
+      }
+    })
+
+  },
+
+  /**
+   * Responds with an individual player in json
+   */
+  getCurrentPlayer: function ( req, res ) {
+    var id = req.user.id;
+    Player.findById( id, { include: [Permission, Character] } )
+    .then( function( player ) {
+      res.send( player )
+    })
   },
 
   /**

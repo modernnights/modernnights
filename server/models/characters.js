@@ -11,7 +11,6 @@ module.exports = function( sequelize, DataTypes ) {
   }, {
     classMethods: {
       associate: function( models ) {
-        Character.belongsTo( models.Player );
         Character.belongsTo( models.Monster );
         Character.belongsTo( models.Character, {as: 'Sire', constraints: false} );
         Character.belongsTo( models.Archetype, {as: 'Nature'} );

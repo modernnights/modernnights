@@ -13,6 +13,7 @@ module.exports = function( sequelize, DataTypes ) {
   }, {
     classMethods: {
       associate: function( models ) {
+        Player.hasMany( models.Character );
         Player.belongsTo( models.Permission );
       }
     }

@@ -1,2 +1,11 @@
 <h1>Coming Soon...</h1>
 <h3>Character generation in the browser</h3>
+
+<div id='chargen'>
+  <form name="chargenForm" ng-submit='chargen( chargenForm.$valid )' novalidate>
+    <input name="nameInput" type='text' ng-model='character.name' ng-class="{ 'error': chargenForm.nameInput.$invalid && shortenForm.$dirty }" required>
+    <button>Create</button>
+  </form>
+
+  {{ character }}
+</div>
