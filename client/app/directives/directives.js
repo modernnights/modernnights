@@ -91,7 +91,7 @@ angular.module( 'modernnights.directive', [] )
               return d.x;
             })
             .attr( 'y', function( d ) {
-              return d.y + 5;
+              return d.y - 5;
             })
             .attr( 'text-anchor', 'middle' )
             .text( function( d ){
@@ -108,11 +108,11 @@ angular.module( 'modernnights.directive', [] )
                 return d.x;
               })
               .attr( 'y', function( d ) {
-                return d.y - 5;
+                return d.y + 5;
               })
               .attr( 'text-anchor', 'middle' )
               .text( function( d ){
-                return d['xp'];
+                return d['xp'] + ' xp';
               })
               .style({
                 'fill': 'white', 

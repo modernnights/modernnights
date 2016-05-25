@@ -7,7 +7,6 @@ angular.module( 'modernnights.services', [] )
       url: '/api/player'
     })
     .then( function( resp ) {
-      console.log( resp );
       return resp.data;
     })
   }

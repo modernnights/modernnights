@@ -364,7 +364,7 @@ module.exports = function( models ) {
     where: {
       name: 'Bob Ross',
       dbref: '#1',
-      xp: 0,
+      xp: 250,
       freebies: 0,
       concept: '',
       path_value: 8,
