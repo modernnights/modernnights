@@ -33,18 +33,93 @@ angular.module( 'modernnights.directive', [] )
   return {
     restrict: 'E',
     controller: function( $scope, Character ) {
+
       Character.getAll()
       .then( function( characters ) {
-        $scope.circles = characters.map( function( character, idx ) {
-          var circle = {};
-          var area = 100 * Math.max( character.xp, 1 );
-          circle.r = Math.sqrt( area / Math.PI ) + "px";
-          circle.x = 200 + idx*200 + "px";
-          circle.y = 200 + "px";
-          circle.fill = "white"
-          return circle;
-        })
+        var diameter = 500, //max size of the bubbles
+            color    = d3.scale.category20b(); //color category
 
+        var bubble = d3.layout.pack()
+          .sort( null )
+          .size( [diameter, diameter] )
+          .padding( 1.5 );
+
+        var svg = d3.select( '.bubble' )
+          .attr( 'width', diameter )
+          .attr( 'height', diameter );
+
+        Character.getAll()
+        .then( function( characters ) {
+          //convert numerical values from strings to numbers
+          var data = characters.map( function( d ) {
+            d.value = +d['xp'];
+            return d;
+          });
+
+          //bubbles needs very specific format, convert data to this.
+          var nodes = bubble.nodes( {children:characters} ).filter( function( d ) {
+            return !d.children;
+          });
+
+          //setup the chart
+          var bubbles = svg.append( 'g' )
+            .attr( 'transform', 'translate(0,0)' )
+            .selectAll( '.bubble' )
+            .data( nodes )
+            .enter();
+
+          //create the bubbles
+          bubbles.append( 'circle' )
+            .attr( 'r', function( d ) { 
+              // area = pi * r * r;
+              // r = sqrt( area / pi );
+              return d.r;
+            })
+            .attr( 'cx', function( d ) {
+              return d.x;
+            })
+            .attr( 'cy', function( d ) {
+              return d.y;
+            })
+            .style( 'fill', function( d ) {
+              return color( d.value );
+            });
+
+          //format the text for each bubble
+          bubbles.append( 'text' )
+            .attr( 'x', function( d ) {
+              return d.x;
+            })
+            .attr( 'y', function( d ) {
+              return d.y + 5;
+            })
+            .attr( 'text-anchor', 'middle' )
+            .text( function( d ){
+              return d['name'];
+            })
+            .style({
+              'fill': 'white', 
+              'font-family': 'Helvetica Neue, Helvetica, Arial, san-serif',
+              'font-size': '12px'
+            });
+
+            bubbles.append( 'text' )
+              .attr( 'x', function( d ) {
+                return d.x;
+              })
+              .attr( 'y', function( d ) {
+                return d.y - 5;
+              })
+              .attr( 'text-anchor', 'middle' )
+              .text( function( d ){
+                return d['xp'];
+              })
+              .style({
+                'fill': 'white', 
+                'font-family': 'Helvetica Neue, Helvetica, Arial, san-serif',
+                'font-size': '12px'
+              });
+        })
       });
     },
     templateUrl: 'app/directives/vis_char_xp.html'
