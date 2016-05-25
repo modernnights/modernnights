@@ -67,6 +67,7 @@ div {
 nav {
   display: flex;
   flex-direction: row-reverse;
+  justify-content: center;
 }
 
 nav a {

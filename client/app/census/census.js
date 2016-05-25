@@ -5,4 +5,5 @@ angular.module( 'modernnights.census', [] )
   .then( function( characters ) {
     $scope.characters = characters;
   });
+  
 });
