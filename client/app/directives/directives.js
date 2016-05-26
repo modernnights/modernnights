@@ -44,7 +44,7 @@ angular.module( 'modernnights.directive', [] )
           .size( [diameter, diameter] )
           .padding( 1.5 );
 
-        var svg = d3.select( '.bubble' )
+        var svg = d3.select( '.xpByCharacter' )
           .attr( 'width', diameter )
           .attr( 'height', diameter );
 
@@ -64,12 +64,13 @@ angular.module( 'modernnights.directive', [] )
           //setup the chart
           var bubbles = svg.append( 'g' )
             .attr( 'transform', 'translate(0,0)' )
-            .selectAll( '.bubble' )
+            .selectAll( '.xpByCharacter' )
             .data( nodes )
             .enter();
 
           //create the bubbles
           bubbles.append( 'circle' )
+            .attr( 'class', 'bubble' )
             .attr( 'r', function( d ) { 
               // area = pi * r * r;
               // r = sqrt( area / pi );
