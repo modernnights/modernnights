@@ -21,11 +21,13 @@
       </select>
       
       <label for="nature">Nature</label>
-      <select id="nature">
+      <select id="nature" ng-model="character.nature">
+        <option ng-repeat="archetype in archetypes" value="{{archetype.id}}">{{archetype.name}}</option>
       </select>
       
-       <label for="demeanor">Demeanor</label>
-      <select id="demeanor">
+      <label for="demeanor">Demeanor</label>
+      <select id="demeanor" ng-model="character.demeanor">
+        <option ng-repeat="archetype in archetypes" value="{{archetype.id}}">{{archetype.name}}</option>
       </select>
     </div>
     
