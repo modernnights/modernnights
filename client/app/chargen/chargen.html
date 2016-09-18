@@ -1,9 +1,78 @@
-<h1>Coming Soon...</h1>
-<h3>Character generation in the browser</h3>
+<h1>Character Generation</h1>
 
 <div id='chargen'>
   <form name="chargenForm" ng-submit='chargen( chargenForm.$valid )' novalidate>
     <ul class="chargen">
+    <div id="classification">
+      <label for="name">Name</label>
+      <input type="text" id="name" />
+      <p class="fieldhelp">This name will be your character's screen name.</p>
+      
+      <label for="sect">Sect</label>
+      <select id="sect">
+      </select>
+      
+      <label for="clan">Clan</label>
+      <select id="clan">
+      </select>
+      
+      <label for="bloodline">Bloodline</label>
+      <select id="bloodline">
+      </select>
+      
+      <label for="nature">Nature</label>
+      <select id="nature">
+      </select>
+      
+       <label for="demeanor">Demeanor</label>
+      <select id="demeanor">
+      </select>
+    </div>
+    
+    <div id="attributes">
+      <fieldset id="Physical">
+        <legend>Physical</legend>
+      </fieldset>
+      
+      <fieldset id="Social">
+        <legend>Social</legend>
+      </fieldset>
+      
+      <fieldset id="Mental">
+        <legend>Mental</legend>
+      </fieldset>
+    </div>
+    
+    <div id="abilities">
+      <fieldset id="talents">
+        <legend>Talents</legend>
+      </fieldset>
+      
+      <fieldset id="skills">
+        <legend>Skills</legend>
+      </fieldset>
+      
+      <fieldset id="knowledges">
+        <legend>Knowledges</legend>
+      </fieldset>
+    </div>
+    
+    <div id="advantages">
+      <fieldset id="backgrounds">
+        <legend>Backgrounds</legend>
+      </fieldset>
+      
+      <fieldset id="powers">
+        <legend>Disciplines</legend>
+      </fieldset>
+      
+      <fieldset id="virtues">
+        <legend>Virtues</legend>
+      </fieldset>
+    </div>
+    
+    <div id="merits-and-flaws">
+    </div> 
       <li><label for="nameInput">NAME</label><input name="nameInput" type='text' ng-model='character.name' ng-class="{ 'error': chargenForm.nameInput.$invalid && shortenForm.$dirty }" required></li>
       <li><label for="dbrefInput">DBREF</label><input name="dbrefInput" type='text' ng-model='character.dbref' ng-class="{ 'error': chargenForm.dbrefInput.$invalid && shortenForm.$dirty }" required></li>
       <li><label for="conceptInput">CONCEPT</label><input name="conceptInput" type='text' ng-model='character.concept' ng-class="{ 'error': chargenForm.conceptInput.$invalid && shortenForm.$dirty }" required></li>

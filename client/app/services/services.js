@@ -15,6 +15,34 @@ angular.module( 'modernnights.services', [] )
   }
 })
 
+.factory('Stat', function( $http ){
+
+  var getArchetypes = function(){
+    return $http({
+      method: 'GET',
+      url: '/api/archetypes'
+    })
+    .then( function( resp ){
+      return resp.data;
+    })
+  }
+  var getStatByType = function( type ){
+    //This will accept an ID to refer to type ID, or a string
+    return $http({
+      method: 'GET',
+      url: '/api/stats/type/' + type
+    })
+    .then( function( resp ) {
+      return resp.data; 
+    })
+  }
+  
+  return{
+    getArchetypes,
+    getStatByType
+  }
+})
+
 .factory( 'Character', function( $http ) {
   var create = function( char ) {
     return $http({
