@@ -1,6 +1,6 @@
 "use strict";
 
-const bcrypt = require( 'bcrypt-as-promised' );
+const bcrypt = require( 'bcryptjs-then' );
 const SALT_WORK_FACTOR = 10;
 
 module.exports = function( sequelize, DataTypes ) {

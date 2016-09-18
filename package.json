@@ -5,7 +5,7 @@
   "main": "server/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "./start_script"
+    "start": "nodemon server/index.js"
   },
   "repository": {
     "type": "git",
@@ -18,7 +18,8 @@
   },
   "homepage": "https://github.com/modernnights/modernnights#readme",
   "dependencies": {
-    "bcrypt-as-promised": "^1.1.0",
+    "bcryptjs": "^2.3.0",
+    "bcryptjs-then": "^1.0.1",
     "body-parser": "^1.15.0",
     "d3": "^3.5.17",
     "express": "^4.13.4",
@@ -31,5 +32,5 @@
     "chai": "^3.5.0",
     "mocha": "^2.4.5",
     "supertest": "^1.2.0"
-  }
+  } 
 }
