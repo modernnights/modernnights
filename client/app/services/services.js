@@ -32,13 +32,43 @@ angular.module( 'modernnights.services', [] )
       method: 'GET',
       url: '/api/stats/type/' + type
     })
-    .then( function( resp ) {
+    .then( function( resp ){
       return resp.data; 
+    })
+  }
+  var getMonsters = function(){
+    return $http({
+      method: 'GET',
+      url: 'api/monsters'
+    })
+    .then( function( resp){
+      return resp.data;
+    })
+  }
+  var getMonstersByType = function( type ){
+    return $http({
+      method: 'GET',
+      url: 'api/monsters/type/' + type
+    })
+    .then( function(resp){
+      return resp.data;
+    })
+  }
+  var getMonsterTypes = function(){
+    return $http({
+      method: 'GET',
+      url: 'api/monstertypes'
+    })
+    .then( function( resp){
+      return resp.data;
     })
   }
   
   return{
     getArchetypes,
+    getMonsters,
+    getMonsterTypes,
+    getMonstersByType,
     getStatsByType
   }
 })

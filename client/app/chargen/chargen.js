@@ -1,9 +1,33 @@
 angular.module( 'modernnights.chargen', [] )
 
 .controller( 'ChargenController', function( Character, Stat, $location, $scope ) {
-  $scope.character = {};
   
-  var getArchetypes = function(){
+  $scope.templates = ['Vampire','Revenant','Ghoul'];
+  
+  $scope.updateselection = function(){
+    var classification="";
+    if( $scope.character.template === "Revenant" ){
+      classification = "Family";
+    } else {
+      classification = "Clan";
+    }
+    
+    Stat.getMonstersByType( classification )
+    .then( function( data ){
+      $scope.monsterselection = data;
+    })
+  };
+  
+  $scope.character = {
+    mental: [],
+    social: [],
+    physical: [],
+    talents: [],
+    skills: [],
+    knowledges: []
+  }
+   
+  var getDropdowns = function(){
     Stat.getArchetypes()
     .then( function( data ){
       $scope.archetypes = data;
@@ -42,7 +66,7 @@ angular.module( 'modernnights.chargen', [] )
     });
   };
   
-  getArchetypes();
+  getDropdowns();
   getStandardStats();
   $scope.standardtrait = [5, 4, 3, 2, 1];
   

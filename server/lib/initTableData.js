@@ -75,6 +75,8 @@ module.exports = function( models ) {
       }
     });
   })
+
+  
   // todo: bulk-add stat types
   const stats = [
     {
@@ -384,6 +386,127 @@ module.exports = function( models ) {
     });
   })
   // todo: bulk-add monsters
+  
+  const monsters = [
+    {
+      name: 'Template',
+      rest: [
+        { 
+          name: 'Vampire',
+          rest: [{
+            name: 'Clan',
+            rest: [
+            {
+              name: 'Assamite',
+              monsters: ['Sorcerer', 'Vizier', 'Warrior']
+            },
+            {
+              name: 'Brujah',
+              monsters: ['Brujah']
+            },
+            {
+              name: 'Cappadocian',
+              monsters: ['Samedi', 'Harbinger of Skulls']
+            },
+            {
+              name: 'Gangrel',
+              monsters: ['Coyote', 'Outlander']
+            },
+            {
+              name: 'Gargoyle',
+              monsters:['Gargoyle']
+            },
+            {
+              name: 'Lasombra',
+              monsters: ['Lasombra', 'Kiasyd']
+            },
+            {
+              name: 'Malkavian',
+              monsters: ['Malkavian', 'Ananke', 'Knight Of The Moon']
+            },
+            {
+              name: 'Nosferatu',
+              monsters: ['Nosferatu']
+            },
+            {
+              name: 'Ravnos',
+              monsters: ['Ravnos']
+            },
+            {
+              name: 'Salubri',
+              monsters: ['Healer','Fury']
+            },
+            {
+              name: 'Setite',
+              monsters: ['Follower of Set', 'Serpent of the Light']
+            },
+            {
+              name: 'Toreador',
+              monsters: ['Volgirre','Ishtarri','Toreador']
+            },
+            {
+              name:'Tremere',
+              monsters:['Tremere','Telyav']
+            },
+            {
+              name: 'Tzimisce',
+              monsters: ['Tzimisce']
+            },
+            {
+              name: 'Ventrue',
+              monsters: ['Ventrue','Crusader']
+            }
+            ]
+          }]
+        },
+        {
+          name: 'Ghoul'
+        },
+        {
+          name: 'Revenant',
+          rest: [{
+            name: 'Family',
+            monsters: ['Obertus', 'Bratovich', 'Grimaldi', 'Zantosa', 'Ducheski' ]
+          }]
+        },
+      ],
+    }
+  ];
+  
+  const addMonster = function( type, monster ) {
+    const id = type.get( 'id' );
+
+    models.Monster.findOrCreate({
+      where: {
+        name: monster.name || monster,
+        monster_type_id: id,
+        rarity: monster.rarity || 0,
+      }
+    })
+  };
+  const addMonsterTypes = function( types, prevID ){
+    // TODO: Refactor forEaches to use promise.each
+    types.forEach( function( type ) {
+        models.MonsterType.findOrCreateNode({
+        where: {
+          name: type.name,
+          parent_monster_id: prevID,
+        }
+      })
+      .then( function( instance ) {
+        if( type.rest ) {
+          addMonsterTypes( type.rest, instance.get('id') );
+        }
+        if( type.monsters ) {
+          type.monsters.forEach( function( monster ) {
+            addMonster( instance, monster );
+          });
+        }
+      })
+    });
+  }
+  addMonsterTypes( monsters, null );
+  
     // mortal
       // werewolf
         // subtype

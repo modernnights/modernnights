@@ -21,7 +21,12 @@ module.exports = function ( app, express ) {
   app.get( '/api/stats/:sname', statController.getStatByName );
   app.get( '/api/stats/type/:id', statController.getStatsByType );
   app.get( '/api/characters/:id/canbuy', statController.canBuy );
-
+  
+  /* MONSTERS */
+  app.get( '/api/monsters', monsterController.getMonsters );
+  app.get( '/api/monsters/:id', monsterController.getMonsterById );
+  app.get( '/api/monstertypes', monsterController.getMonsterTypes );
+  app.get( '/api/monsters/type/:id', monsterController.getMonstersByType );
   /* Add token on subsequent routes. */
   app.use( helpers.decode );
 
@@ -42,10 +47,6 @@ module.exports = function ( app, express ) {
   app.get( '/api/players/:id/characters', characterController.getCharactersByPlayer );
   app.post( '/api/characters', characterController.makeCharacter );
   app.put( '/api/characters/:id', characterController.editCharacter );
-
-  /* MONSTERS */
-  app.get( '/api/monsters', monsterController.getMonsters );
-  app.get( '/api/monsters/:id', monsterController.getMonsterById );
 
   /* COSTS */
   app.get( '/api/stats/:sname/cost/:mid', costController.getMonsterCosts );
