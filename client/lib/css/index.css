@@ -1,3 +1,389 @@
+/* ###############################################
+*
+* CSS Reset 
+*
+################################################ */ 
+
+  html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp, small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, figcaption, figure,  footer, header, hgroup, menu, nav, section, summary, time, mark, audio, video {
+    margin:0;
+    padding:0;
+    border:0;
+    outline:0;
+    font-size:100%;
+    vertical-align:baseline;
+    background:transparent;
+  }
+
+  body {
+    line-height:1;
+  }
+
+  article,aside,details,figcaption,figure, footer,header,hgroup,menu,nav,section { 
+    display:block;
+  }
+
+  nav ul {
+    list-style:none;
+  }
+
+  ul {
+    list-style-type:none;
+  }
+
+  blockquote, q {
+    quotes:none;
+  }
+
+  blockquote:before, blockquote:after,
+  q:before, q:after {
+    content:'';
+    content:none;
+  }
+
+  html, body {
+    margin:0;
+    padding:0;
+    height:100%;
+  }
+
+  a {
+    margin:0;
+    padding:0;
+    font-size:100%;
+    vertical-align:baseline;
+    background:transparent;
+  }
+
+  abbr[title], dfn[title] {
+    border-bottom:1px dotted;
+    cursor:help;
+  }
+
+
+  table {
+    border-collapse:collapse;
+    border-spacing:0;
+  }
+
+  hr {
+    display:block;
+    height:1px;
+    border:0;   
+    border-top:1px solid #cccccc;
+    margin:1em 0;
+    padding:0;
+  }
+
+  input, select {
+    vertical-align:middle;
+  }
+  
+/* ###############################################
+*
+* Structure
+*
+################################################ */ 
+  html, body {
+    height: 100%;
+    background: #f7ffff;
+  }  
+ 
+	#container {
+		min-height:100%;
+    position: relative;
+    overflow: hidden;
+    overflow: auto; 
+	}
+  
+  #body {
+    padding-bottom: 100px;
+	}	
+	
+	#footer{
+    position: absolute;
+    bottom:0;
+    width: 80%;
+    box-sizing: border-box;
+    height: 50px; s
+    border-top: 1px solid #d1d8e6;
+    padding: 1em 0;
+    margin: 0 auto;
+    text-align: center;
+    color: #7e899f;
+    font-size: .85em;
+	}
+  
+  #header{
+    padding: .33rem;
+    background: #ffffff;
+    border-bottom: 1px solid #d1d8e6;
+    position: relative;
+    height: 4rem;
+  }
+  #header nav{
+    position: absolute;
+    right: 1rem;
+    top: 1.5rem;
+  }
+  
+  #header a{
+    padding: .5rem;
+    border-radius: 5px;
+    background: #c1e8e8;
+    border: 1px solid #c9dada;   
+    border-bottom: 2px solid #c9dada;   
+    color:  #596378;
+    margin: 0 .5rem;
+  }
+  
+  a, a:hover {
+  color: #4f90e8;
+  text-decoration: none;
+    transition: .25s ease-in-out;
+    -moz-transition: .25s ease-in-out;
+    -webkit-transition: .25s ease-in-out;  
+  }
+    
+  #header a.orangebutton{
+    background: #ff7000;
+    border: 1px solid #e66500;
+    color: #ffffff;
+    border-bottom: 2px  solid #cd5a00;
+  }
+  
+  #header a:hover{
+    color: #ffffff;
+    background: #4f90e8;
+    border: 1px solid #209fff;
+    border-bottom: 2px solid #209fff;
+       transition: .25s ease-in-out;
+      -moz-transition: .25s ease-in-out;
+      -webkit-transition: .25s ease-in-out;  
+  }
+  
+/* ########## Responsive Layout ################ */
+
+  .floatedcontainer{
+    overflow: auto; 
+  }
+
+.row, .column{
+  float: left;
+  box-sizing:border-box;
+  right:0;
+}
+.row{
+  width:100%;
+  clear:both;
+  padding:.33rem;
+  margin-right:0;
+  margin-left:0;
+}   
+
+.column{
+  padding:.66rem;
+}
+
+.half{
+  width:50%;
+}
+
+.third{
+  width:33.3%;
+}
+  .twothirds{
+    width:66.6%;
+  }
+  
+.fourth{
+  width:25%;
+}
+  .threefourths{
+    width:75%;
+  }
+  
+.fifth{
+  width:20%;
+}
+  .twofifths{
+    width:40%;
+  }
+  .threefifths{
+    width:60%;
+  }
+  .fourfifths{
+    width:80%;
+  }
+  
+.sixth{
+  width:16.66%;
+  }
+  .fivesixths{
+    width:83.3%;
+  }
+  
+
+/* BREAKPOINTS */
+
+@media( max-width:800px ){
+  .fourth, .third {
+    width:50%;
+  }
+
+  .twothirds, .threefourths{
+    width:50%;
+  }
+
+  .fourth{
+    width:33.3%;
+  }
+}
+
+@media ( max-width: 900px ){
+  .fourth{
+    width:100%;
+    padding-left:0;
+  }
+  .threefourths{
+    width:100%;
+    padding-left:0;
+  }
+}
+
+@media ( max-width: 680px ) {
+  .fourfifths, .fifth {
+    width: 50%;
+  }
+}
+
+@media (max-width: 600px){
+  .half, .third, .twothirds, .fifth, .fourfifths {
+    width:100%;
+    padding-left:0;
+  }
+}
+/* ###############################################
+*
+* Forms
+*
+################################################ */ 
+
+legend{ color: white; }
+
+/* CHARACTER GENERATION */
+
+
+/* ###############################################
+*
+* Typebase
+*
+################################################ */ 
+
+/* MISC TYPEBASE */
+body { color: white; }
+  /* For anti-aliasing */
+  html { 
+    text-shadow: 1px 1px 2px rgba(0,0,0,.15);
+    font-size: 100%; 
+    -webkit-font-smoothing: antialiased;
+  }
+
+ .maxwidth{ 
+    max-width: 1200px; 
+    margin: 0 auto;
+    float: none;
+  }
+
+/* HEADINGS */
+
+  h1, .size1 {
+    font-size: 2rem;
+  }
+  h2, .size2 {
+    font-size: 1.6rem;
+  }
+  h3, .size3 {
+    font-size: 1.28rem;
+  }
+  h4, .size4 {
+    font-size: 1rem;
+  }
+  h5, .size5 {
+    font-size: 1rem;
+  }
+  h6, .size6 {
+    font-size: 1rem;
+    font-weight: 700;
+  }
+
+  h1 + p, 
+  h2 + p, 
+  h3 + p, 
+  h4 + p, 
+  h5 + p, 
+  h6 + p {
+    margin-top:0;
+  }
+
+  h1,h2,h3,h4,h5,h6, .asheader {
+    font-weight: 700;
+    margin-top: 1.33rem;
+    margin-bottom: 0;
+    line-height: 1.5em;
+    font-family: "Open Sans Condensed", sans-serif;
+  }
+  
+  /* COPY AND LISTS */
+
+  p, blockquote {
+    line-height: 1.5rem;
+    margin-top: 1.33rem;
+    margin-bottom: 0;
+  }
+  
+
+  address{
+    line-height: 1.5rem;
+    font-size: 1rem;
+    font-style: normal;
+  }
+
+  ul, ol {
+    margin: 1.5rem 0;
+  }
+  ul li, ol li {
+    line-height: 1.5rem;
+  }
+
+  ul ul, ol ul, ul ol, ol ol {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  
+  /* TABLE TYPEBASE */
+  table {
+    margin-top: 1.5rem;
+    border-spacing: 0px;
+    border-collapse: collapse;
+  }
+  table td,
+  table th {
+    padding: 0;
+    line-height: 33px;
+  }
+  
+  /* CODE BLOCKS */
+  code {
+    vertical-align: bottom;
+  }
+
+/* ###############################################
+*
+* Gravy
+*
+################################################ */ 
+
+
 body {
   background-image: radial-gradient(ellipse at center, rgba(0,0,0,0) 40%, rgba(0,0,0,1) 100%),
     url('/assets/wall.jpg');
@@ -58,12 +444,6 @@ body > div {
   color: antiquewhite;
 }
 
-div {
-  text-align: center;
-  font-size: 3rem;
-  color: beige;
-}
-
 nav {
   display: flex;
   flex-direction: row-reverse;
@@ -85,6 +465,7 @@ nav a:hover {
   border-bottom: 1px solid red;
   opacity: .5;
 }
+
 
 
 /* CHARGEN */
@@ -114,6 +495,5 @@ nav a:hover {
     margin-right: 15px;
   }
 }
-
 
 

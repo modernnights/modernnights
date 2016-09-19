@@ -1,7 +1,7 @@
 angular.module( 'modernnights.chargen', [] )
 
 .controller( 'ChargenController', function( Character, Stat, $location, $scope ) {
-  $scope.char = {};
+  $scope.character = {};
   
   var getArchetypes = function(){
     Stat.getArchetypes()
@@ -11,14 +11,25 @@ angular.module( 'modernnights.chargen', [] )
   };
   
   var getAttributes = function(){
-    Stat.getStatByType( 'attributes' )
+    Stat.getStatsByType( 'mental' )
     .then( function( data ){
-      $scope.attributes = data; 
+      $scope.mentalattributes = data; 
+    });
+    
+    Stat.getStatsByType( 'social' )
+    .then( function( data ){
+      $scope.socialattributes = data;
+    });
+    
+    Stat.getStatsByType( 'physical' )
+    .then( function( data ){
+      $scope.physicalattributes = data;
     });
   };
   
   getArchetypes();
   getAttributes();
+  $scope.standardtrait = [5, 4, 3, 2, 1];
   
   $scope.chargen = function( isValid ) {
     if ( isValid ) {

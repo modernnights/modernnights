@@ -26,7 +26,7 @@ angular.module( 'modernnights.services', [] )
       return resp.data;
     })
   }
-  var getStatByType = function( type ){
+  var getStatsByType = function( type ){
     //This will accept an ID to refer to type ID, or a string
     return $http({
       method: 'GET',
@@ -39,7 +39,7 @@ angular.module( 'modernnights.services', [] )
   
   return{
     getArchetypes,
-    getStatByType
+    getStatsByType
   }
 })
 

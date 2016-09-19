@@ -31,18 +31,42 @@
       </select>
     </div>
     
-    <div id="attributes">
-      <fieldset id="Physical">
+    <div id="attributes" class="row">
+      
+      <fieldset id="Physical" class="column third flushleft">
         <legend>Physical</legend>
+        <div class="statrating">
+          <div ng-repeat="stat in physicalattributes">
+          <label for="{{stat.name}}" class="dot">{{stat.name}}</label>
+            <div ng-repeat="number in standardtrait">
+            <input type="radio" name="{{stat.name}}" value={{number}} class="statinput" id="{{stat.name}}-{{number}}" ng-model="character[stat.name]">
+            <label for="{{stat.name}}-{{number}}" class="statvalue">{{number}}</label>
+            </div>
+          </div>
+        </div>
       </fieldset>
       
-      <fieldset id="Social">
+      <fieldset id="social" class="column third">
         <legend>Social</legend>
+        <div ng-repeat="stat in socialattributes">
+        <label for="{{stat.name}}">{{stat.name}}</label>
+          <div ng-repeat="number in standardtrait">
+          <input type="radio" name="{{stat.name}}" value={{number}} id="{{stat.name}}" ng-model="character[stat.name]"><label for="{{number}}">{{number}}</label>
+          </div>
+        </div>
       </fieldset>
       
-      <fieldset id="Mental">
+      <fieldset id="Mental" class="column third flushright">
         <legend>Mental</legend>
+        <div ng-repeat="stat in mentalattributes">
+        <label for="{{stat.name}}">{{stat.name}}</label>
+          <div ng-repeat="number in standardtrait">
+          <input type="radio" name="{{stat.name}}" value={{number}} id="{{stat.name}}" ng-model="character[stat.name]"><label for="{{number}}">{{number}}</label>
+          </div>
+        </div>
       </fieldset>
+    </div>
+      
     </div>
     
     <div id="abilities">
