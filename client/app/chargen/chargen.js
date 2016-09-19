@@ -4,18 +4,42 @@ angular.module( 'modernnights.chargen', [] )
   
   $scope.templates = ['Vampire','Revenant','Ghoul'];
   
-  $scope.updateselection = function(){
+  $scope.updatemonsterselection = function(){
     var classification="";
+    $scope.character.monster_id = null;
+    $scope.monstersubselection = [];
     if( $scope.character.template === "Revenant" ){
-      classification = "Family";
+      Stat.getMonstersByType('Family')
+      .then(function( data ){
+        $scope.monsterselection = data;
+      });
     } else {
-      classification = "Clan";
+      Stat.getMonsterTypes()
+      .then( function( data ){
+        $scope.monsterselection = [];
+        data.forEach( function( data ){
+          if( data.parent_monster_id === 5 ){
+            $scope.monsterselection.push( {name: data.name, id: data.id} );  
+          }
+        });
+      });
     }
-    
-    Stat.getMonstersByType( classification )
-    .then( function( data ){
-      $scope.monsterselection = data;
-    })
+  };
+  
+  $scope.updatemonstersubselection = function( monstertype ){
+    $scope.character.monster_id = null;
+    if( $scope.character.template === "Vampire" || $scope.character.template === "Ghoul"  ){
+      Stat.getMonstersByType( monstertype )
+      .then( function( data ){
+        if( data.length > 1 ){
+          $scope.monstersubselection = data;
+        } else {
+          $scope.character.monster_id = data[0].id;
+        }
+      });
+    } else {
+      $scope.character.monster_id = monstertype; 
+    }
   };
   
   $scope.character = {
@@ -68,7 +92,7 @@ angular.module( 'modernnights.chargen', [] )
   
   getDropdowns();
   getStandardStats();
-  $scope.standardtrait = [5, 4, 3, 2, 1];
+  $scope.standardtrait = [1,2,3,4,5];
   
   $scope.chargen = function( isValid ) {
     if ( isValid ) {

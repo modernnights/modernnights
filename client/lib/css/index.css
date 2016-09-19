@@ -85,7 +85,7 @@
 ################################################ */ 
   html, body {
     height: 100%;
-    background: #f7ffff;
+    background: #0b0000;
   }  
  
 	#container {
@@ -267,6 +267,208 @@
 * Forms
 *
 ################################################ */ 
+  
+form {
+  padding: .25rem;
+  box-sizing:border-box;
+}
+  
+input, select {
+  margin: .25rem 0;
+}
+
+fieldset{
+  padding: .5rem 0;
+  box-sizing: border-box;
+}
+  
+legend{
+  font-size:1.5rem;
+  font-weight: 700;
+  float: left;
+  width: 100%;
+  padding: .5rem 0;
+}
+
+legend:after{
+  content: "";
+  display: block;
+  height: .25rem;
+}
+
+label, .aslabel {
+  font-weight: 700;
+  display: block;
+  cursor: pointer;
+  margin-top: .75rem;
+}
+  
+/* Captions, text, etc. */
+
+.fieldhelp {
+  font-size: .85rem;
+  color: #888;
+  font-style:italic;
+  margin-top:0;
+}
+
+/* Fillable Form Fields and Dropdowns */
+textarea, input[type="text"], input[type="email"], input[type="password"], input[type="date"], input[type="time"], input[type="tel"], input[type="email"], input[type="number"], select, input[type="search"], input[type="password"], select {
+  width:100%;
+  height: 30px;
+  border:none;
+  outline:1px solid #7cadee;
+  padding:.66em .33em;
+  background: #fff;
+  color: #000;
+  box-sizing:border-box;
+  transition: .25s ease-in-out;
+    -moz-transition: .25s ease-in-out;
+    -webkit-transition: .25s ease-in-out;
+}
+select {
+  padding: 0;
+}
+
+textarea{
+  resize: none;
+  height: 100px;
+  width:100%;
+  box-sizing:border-box;
+}
+
+/* Input with button fixed to right */
+.inputwrapper{
+  margin-top:.23em;
+  border: 1px solid #7cadee;
+  display: inline-block;
+  position: relative;
+  width: 100%;
+  box-sizing: border-box;
+  background:#ffffff;
+}
+
+.inputwrapper input, .inputwrapper select {
+  border: 0;
+  outline: 0;
+  margin: 0;
+  padding: .33em 0;
+  position:relative;
+  width: 100%;
+  box-sizing:border-box;
+  cursor: pointer;
+  cursor: hand;
+}
+
+
+.inputwrapper button, .inputwrapper span{
+  border:1px solid #F2001C;
+  position: absolute;
+  height:30px;
+  right:0px;
+  top: 0px;
+  margin: 0;
+  border-radius:0;
+  height: 2.25em;
+  line-height:2px;
+  background: #F2001C;
+} 
+
+.inputwrapper button, .inputwrapper .asbutton {
+  transition: .25s ease-in-out;
+      -moz-transition: .25s ease-in-out;
+      -webkit-transition: .25s ease-in-out;
+}
+.inputwrapper span{
+  height:29px;
+  padding:0 10px;
+  line-height:30px;
+}
+
+.inputwrapper button:hover{
+  background: #F2001C;
+  color: #ffffff;
+  transition: .25s ease-in-out;
+      -moz-transition: .25s ease-in-out;
+      -webkit-transition: .25s ease-in-out;
+}
+
+/* Checkboxes and radios - hide the original unless you are from 1857  */ 
+[type="radio"]:not(old), [type="checkbox"]:not(old) {
+  border: 0;
+  clip: rect(0 0 0 0); 
+  height: 1px; margin: -1px; 
+  overflow: hidden; 
+  padding: 0; 
+  position: absolute; 
+  width: 1px;
+}
+
+  /* Unchecked radio and checkboxes */
+    [type="radio"] + span:before, [type="radio"] + label:before {
+      content: '';
+      display: inline-block;
+      width: .5em;
+      height: .5em;
+      vertical-align: middle;
+      border-radius: 1em;
+      border: 0.125em solid #fff;
+      box-shadow: 0 0 0 0.05em #888;
+      margin: .5em;
+      margin-right: 0.5em;
+      transition: 0.25s ease all;
+      cursor: pointer;
+      background: white;
+    }
+   
+    [type="checkbox"] + label:before, [type="checkbox"] + span:before {
+      display: inline-block;
+      content: '';
+      width: 1.5em;
+      height: 1.5em;
+      vertical-align:-.35em;
+      border:1px solid #7cadee;
+      border-radius:2px;
+      background: #ffffff;
+      margin-right:.5em;
+      transition: 0.25s ease all;
+    }
+    
+    .required:after {
+      content:"*";
+      color: #F2001C;
+      display: inline-block;
+    }
+    
+  /* Checked radio and checkboxes */ 
+    [type="radio"]:checked + span:before, [type="radio"]:checked + label:before {
+      background: #000000;
+      box-shadow: 0 0 0 0.05em #888;
+    }
+  
+    input[type="checkbox"]:checked + label:before{
+      background-image: url('../img/checkmark.png');
+      background-size: 100%;
+      border: 1px solid #FFFFFF;
+      transition: 0.25s ease all;
+    }  
+  
+/* Focus States */ 
+  input[type="radio"]:focus + span:before, input[type="radio"]:focus + label:before  {
+    background: #F2001C;
+  }
+
+  input:focus, select:focus, textarea:focus {
+    box-shadow: 
+    0px 0px 10px rgba(0,0,0,0.10),
+    0px 5px 10px rgba(0,0,0,0.05),
+    0px 10px 10px rgba(0,0,0,0.05),
+    0px 15px 10px rgba(0,0,0,0.05);
+    transition: .25s ease-in-out;
+      -moz-transition: .25s ease-in-out;
+      -webkit-transition: .25s ease-in-out;
+    outline: 3px solid #F2001C;
+  }
 
 legend{ color: white; }
 
@@ -334,13 +536,11 @@ body { color: white; }
   }
   
   /* COPY AND LISTS */
-
   p, blockquote {
     line-height: 1.5rem;
     margin-top: 1.33rem;
     margin-bottom: 0;
-  }
-  
+  } 
 
   address{
     line-height: 1.5rem;
@@ -376,6 +576,13 @@ body { color: white; }
   code {
     vertical-align: bottom;
   }
+  
+  .boxframe{
+    background-color: rgba(255,255,255,0.5);
+    border-radius: .25em;
+    box-sizing: border-box;
+    border: 2px inset black;
+  }
 
 /* ###############################################
 *
@@ -383,55 +590,14 @@ body { color: white; }
 *
 ################################################ */ 
 
-
-body {
-  background-image: radial-gradient(ellipse at center, rgba(0,0,0,0) 40%, rgba(0,0,0,1) 100%),
-    url('/assets/wall.jpg');
-  background-color: #8b0000;
-  background-blend-mode: color-burn;
-}
+.center{ text-align: center; }
+.statvalue{ float: left; }
+.statinput:checked + .statvalue { background-color: black; border-radius: 100%; }
+.statinput:checked ~ .statvalue { background-color: red; }
+.statblock: { outline: 2px solid grey; }
 
 ul {
   list-style: none;
-}
-
-html, body {
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-}
-
-body > div {
-  height: 100%;
-  overflow: scroll;
-  -webkit-overflow-scrolling: touch;
-}
-
-.text-outline {
-  text-shadow: 1px 1px 0 #000,
-    -1px 1px 0 #000,
-    1px -1px 0 #000,
-    -1px -1px 0 #000,
-    0px 1px 0 #000,
-    0px -1px 0 #000,
-    -1px 0px 0 #000,
-    1px 0px 0 #000,
-    2px 2px 0 #000,
-    -2px 2px 0 #000,
-    2px -2px 0 #000,
-    -2px -2px 0 #000,
-    0px 2px 0 #000,
-    0px -2px 0 #000,
-    -2px 0px 0 #000,
-    2px 0px 0 #000,
-    1px 2px 0 #000,
-    -1px 2px 0 #000,
-    1px -2px 0 #000,
-    -1px -2px 0 #000,
-    2px 1px 0 #000,
-    -2px 1px 0 #000,
-    2px -1px 0 #000,
-    -2px -1px 0 #000;
 }
 
 .error {
@@ -466,14 +632,8 @@ nav a:hover {
   opacity: .5;
 }
 
-
-
 /* CHARGEN */
-.chargen li label {
-  text-align: left;
-  width: 200px;
-  margin-right: 15px;
-}
+
 
 /* ROSTER */
 .characterPortrait {
