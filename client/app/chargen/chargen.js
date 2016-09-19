@@ -10,7 +10,7 @@ angular.module( 'modernnights.chargen', [] )
     });
   };
   
-  var getAttributes = function(){
+  var getStandardStats = function(){
     Stat.getStatsByType( 'mental' )
     .then( function( data ){
       $scope.mentalattributes = data; 
@@ -25,10 +25,25 @@ angular.module( 'modernnights.chargen', [] )
     .then( function( data ){
       $scope.physicalattributes = data;
     });
+  
+    Stat.getStatsByType( 'talents' )
+    .then( function (data){
+      $scope.talents = data;
+    });
+    
+    Stat.getStatsByType( 'skills' )
+    .then( function (data){
+      $scope.skills = data;
+    });
+    
+    Stat.getStatsByType( 'knowledges' )
+    .then( function(data){
+      $scope.knowledges = data;
+    });
   };
   
   getArchetypes();
-  getAttributes();
+  getStandardStats();
   $scope.standardtrait = [5, 4, 3, 2, 1];
   
   $scope.chargen = function( isValid ) {

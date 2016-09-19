@@ -32,7 +32,6 @@
     </div>
     
     <div id="attributes" class="row">
-      
       <fieldset id="Physical" class="column third flushleft">
         <legend>Physical</legend>
         <div class="statrating">
@@ -67,19 +66,37 @@
       </fieldset>
     </div>
       
-    </div>
     
-    <div id="abilities">
-      <fieldset id="talents">
+    
+    <div id="abilities" class="row">
+      <fieldset id="talents" class="column third flushleft">
         <legend>Talents</legend>
+        <div ng-repeat="stat in talents">
+        <label for="{{stat.name}}">{{stat.name}}</label>
+          <div ng-repeat="number in standardtrait">
+          <input type="radio" name="{{stat.name}}" value={{number}} id="{{stat.name}}" ng-model="character[stat.name]"><label for="{{number}}">{{number}}</label>
+          </div>
+        </div>
       </fieldset>
       
-      <fieldset id="skills">
+      <fieldset id="skills" class="column third">
         <legend>Skills</legend>
+        <div ng-repeat="stat in skills">
+        <label for="{{stat.name}}">{{stat.name}}</label>
+          <div ng-repeat="number in standardtrait">
+          <input type="radio" name="{{stat.name}}" value={{number}} id="{{stat.name}}" ng-model="character[stat.name]"><label for="{{number}}">{{number}}</label>
+          </div>
+        </div>
       </fieldset>
       
-      <fieldset id="knowledges">
-        <legend>Knowledges</legend>
+      <fieldset id="knowledges" class="column third">
+        <legend>Skills</legend>
+        <div ng-repeat="stat in knowledges">
+        <label for="{{stat.name}}">{{stat.name}}</label>
+          <div ng-repeat="number in standardtrait">
+          <input type="radio" name="{{stat.name}}" value={{number}} id="{{stat.name}}" ng-model="character[stat.name]"><label for="{{number}}">{{number}}</label>
+          </div>
+        </div>
       </fieldset>
     </div>
     
