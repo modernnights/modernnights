@@ -5,42 +5,27 @@ angular.module( 'modernnights.chargen', [] )
   $scope.templates = ['Vampire','Revenant','Ghoul'];
   
   $scope.updatemonsterselection = function(){
-    var classification="";
-    $scope.character.monster_id = null;
-    $scope.monstersubselection = [];
-    if( $scope.character.template === "Revenant" ){
-      Stat.getMonstersByType('Family')
-      .then(function( data ){
-        $scope.monsterselection = data;
-      });
-    } else {
-      Stat.getMonsterTypes()
-      .then( function( data ){
-        $scope.monsterselection = [];
-        data.forEach( function( data ){
-          if( data.parent_monster_id === 5 ){
-            $scope.monsterselection.push( {name: data.name, id: data.id} );  
-          }
-        });
-      });
-    }
+    $scope.monstersubselection = null;
+    $scope.monsterselection = null;
+    $scope.character.monstertype = null;
+    $scope.character.monstersubtype = null;
+    Stat.getMonstersByType( $scope.character.template )
+    .then(function( data ){
+      $scope.monsterselection = data;
+      setmonsterid( data.id );
+    });
+  };
+    
+  $scope.updatemonstersubselection = function( monstertype ){
+    $scope.monstersubselection = null;
+    Stat.getMonstersByType( monstertype )
+    .then( function( data ){
+      if( data.length > 1 ){
+        $scope.monstersubselection = data;
+      }
+    });
   };
   
-  $scope.updatemonstersubselection = function( monstertype ){
-    $scope.character.monster_id = null;
-    if( $scope.character.template === "Vampire" || $scope.character.template === "Ghoul"  ){
-      Stat.getMonstersByType( monstertype )
-      .then( function( data ){
-        if( data.length > 1 ){
-          $scope.monstersubselection = data;
-        } else {
-          $scope.character.monster_id = data[0].id;
-        }
-      });
-    } else {
-      $scope.character.monster_id = monstertype; 
-    }
-  };
   
   $scope.character = {
     mental: [],

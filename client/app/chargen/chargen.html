@@ -24,7 +24,7 @@
           <option ng-repeat="template in templates" value="{{template}}">{{template}}</option>
         </select>
       
-        <div ng-show="character.template != null">
+        <div ng-show="monsterselection != null">
           <label for="classification">Clan</label>
           <select id="classification" ng-model="character.monstertype" ng-change="updatemonstersubselection( character.monstertype )">
             <option ng-repeat="monstertype in monsterselection" value="{{monstertype.id}}">{{monstertype.name}}</option>
@@ -33,7 +33,7 @@
         
         <div ng-show="monstersubselection.length > 1">
           <label for="bloodline">Bloodline</label>
-          <select id="bloodline" ng-model="character.monster_id">
+          <select id="bloodline" ng-model="character.monstersubtype" ng-change="setmonster_id( character.monstersubtype )">
             <option ng-repeat="monster in monstersubselection" value="{{monster.id}}">{{monster.name}}</option>
           </select>
         </div>

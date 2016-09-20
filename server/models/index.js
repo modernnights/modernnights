@@ -4,6 +4,7 @@ var fs        = require( "fs" );
 var path      = require( "path" );
 var Sequelize = require( "sequelize" );
 var sequelize = require( '../lib/sequelize' );
+require('sequelize-hierarchy')(Sequelize);
 var db        = {};
 
 fs

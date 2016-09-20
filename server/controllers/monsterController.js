@@ -1,6 +1,4 @@
 const Monster = require( '../models' ).Monster;
-const MonsterType = require('../models').MonsterType;
-
 module.exports = {
   
   getMonsters: function( req, res ) {
@@ -16,25 +14,11 @@ module.exports = {
       errorHandler( err, req, res );
     });
   },
-
-  getMonsterTypes: function( req, res ) {
-    MonsterType.findAll()
-    .then( function( data ) {
-      if( data.length === 0 ) {
-        res.status( 404 ).send( 'No monster types found' );
-        return null;
-      }
-      res.json( data );
-    })
-    .catch( function( err ){ 
-      errorHandler( err, req, res );
-    });
-  },
   
   getMonstersByType: function( req, res ){
     var id = new Promise( function( resolve, reject ){
       if( isNaN( req.params.id ) ){
-        MonsterType.findOne({
+        Monster.findOne({
           where: 
           {name: req.params.id }
         })
@@ -54,28 +38,24 @@ module.exports = {
       }
     });
     
-    id.then(
-      function( id ){
-        MonsterType.pathToLeaves( id )
-        .spread( function( leaves ){
-          // Create array of stattype ids in this hierarchy
-          var ids = leaves.map( function( leaf ) {
-            return { id: leaf.id };
-          });
-          Monster.findAll( { include: [ { model: MonsterType, where: { $or: ids } } ] } )
-          .then( function( data ) {
-            if( data.length === 0 ) {
-              res.status( 404 ).send( 'No monsters found with that type' );
-              return null;
-            }
-            res.json( data );
-          })
-          .catch( function( err ) {
-            errorHandler( err, req, res );
-          });
-        })
+    id.then( function( id ){
+      console.log( "Worked ");
+      Monster.findAll({ 
+        where: {
+          parentId : id 
+        } 
+      })
+      .then( function( data ){
+        if( data.length === 0 ) {
+          res.status( 404 ).send( 'No monsters found with that type' );
+          return null;
+        }
+        res.json( data );
+      })
+      .catch( function( err ) {
+        console.log( err );
       });
-    //TODO: Handle hierarchy when done with handling stat hierarchy.
+    });
   },
   
   getMonsterById: function( req, res ) {

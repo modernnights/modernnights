@@ -25,7 +25,6 @@ module.exports = function ( app, express ) {
   /* MONSTERS */
   app.get( '/api/monsters', monsterController.getMonsters );
   app.get( '/api/monsters/:id', monsterController.getMonsterById );
-  app.get( '/api/monstertypes', monsterController.getMonsterTypes );
   app.get( '/api/monsters/type/:id', monsterController.getMonstersByType );
   /* Add token on subsequent routes. */
   app.use( helpers.decode );
