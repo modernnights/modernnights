@@ -1,7 +1,9 @@
 'use strict';
 
 module.exports = function( models ) {
-  /* Permissions */
+  
+   /* Permissions */
+  
   models.Permission.findOrCreate({ 
     where: {
       name: 'Mortal',
@@ -23,7 +25,10 @@ module.exports = function( models ) {
       writeAll: true,
     }
   });
+  
+  
   /* Archetypes */
+  
   const archetypes = [
     'Architect',
     'Autocrat',
@@ -384,128 +389,111 @@ module.exports = function( models ) {
         }
       });
     });
-  })
-  // todo: bulk-add monsters
+  }) 
   
   const monsters = [
+    { 
+      name: 'Vampire',
+      attribute_spread_id: 1,
+      ability_spread_id: 3,
+      power_spread_id: 5,
+      children: [
+        {
+        name: 'Assamite',
+        children: [
+        {name:'Sorcerer'}, {name:'Vizier'}, {name:'Warrior'}]
+        },
+        {
+          name: 'Brujah',
+        },
+        {
+          name: 'Cappadocian',
+          children: [{name:'Samedi'}, {name:'Harbinger of Skulls'}]
+        },
+        {
+          name: 'Gangrel',
+          children: [{name:'Coyote'}, {name:'Outlander'}]
+        },
+        {
+          name: 'Gargoyle',
+        },
+        {
+          name: 'Lasombra',
+          children: [{name:'Lasombra'}, {name:'Kiasyd'}]
+        },
+        {
+          name: 'Malkavian',
+          children: [{name:'Malkavian'}, {name:'Ananke'}, {name:'Knight Of The Moon'}]
+        },
+        {
+          name: 'Nosferatu',
+        },
+        {
+          name: 'Ravnos',
+        },
+        {
+          name: 'Salubri',
+          children: [{name:'Healer'},{name:'Fury'}]
+        },
+        {
+          name: 'Setite',
+          children: [{name:'Follower of Set'}, {name:'Serpent of the Light'}]
+        },
+        {
+          name: 'Toreador',
+          children: [{name:'Volgirre'},{name:'Ishtarri'},{name:'Toreador'}]
+        },
+        {
+          name:'Tremere',
+          monsters:[{name:'Tremere'},{name:'Telyav'}]
+        },
+        {
+          name: 'Tzimisce',
+        },
+        {
+          name: 'Ventrue',
+          children: [{name:'Ventrue'},{name:'Crusader'}]
+        }
+      ]
+    },
     {
-      name: 'Template',
-      rest: [
-        { 
-          name: 'Vampire',
-          rest: [{
-            name: 'Clan',
-            rest: [
-            {
-              name: 'Assamite',
-              monsters: ['Sorcerer', 'Vizier', 'Warrior']
-            },
-            {
-              name: 'Brujah',
-              monsters: ['Brujah']
-            },
-            {
-              name: 'Cappadocian',
-              monsters: ['Samedi', 'Harbinger of Skulls']
-            },
-            {
-              name: 'Gangrel',
-              monsters: ['Coyote', 'Outlander']
-            },
-            {
-              name: 'Gargoyle',
-              monsters:['Gargoyle']
-            },
-            {
-              name: 'Lasombra',
-              monsters: ['Lasombra', 'Kiasyd']
-            },
-            {
-              name: 'Malkavian',
-              monsters: ['Malkavian', 'Ananke', 'Knight Of The Moon']
-            },
-            {
-              name: 'Nosferatu',
-              monsters: ['Nosferatu']
-            },
-            {
-              name: 'Ravnos',
-              monsters: ['Ravnos']
-            },
-            {
-              name: 'Salubri',
-              monsters: ['Healer','Fury']
-            },
-            {
-              name: 'Setite',
-              monsters: ['Follower of Set', 'Serpent of the Light']
-            },
-            {
-              name: 'Toreador',
-              monsters: ['Volgirre','Ishtarri','Toreador']
-            },
-            {
-              name:'Tremere',
-              monsters:['Tremere','Telyav']
-            },
-            {
-              name: 'Tzimisce',
-              monsters: ['Tzimisce']
-            },
-            {
-              name: 'Ventrue',
-              monsters: ['Ventrue','Crusader']
-            }
-            ]
-          }]
-        },
-        {
-          name: 'Ghoul'
-        },
-        {
-          name: 'Revenant',
-          rest: [{
-            name: 'Family',
-            monsters: ['Obertus', 'Bratovich', 'Grimaldi', 'Zantosa', 'Ducheski' ]
-          }]
-        },
-      ],
+      name: 'Ghoul',
+      attribute_spread_id: 2,
+      ability_spread_id: 3,
+      power_spread_id: 8
+    },
+    {
+      name: 'Revenant',
+      attribute_spread_id: 2,
+      ability_spread_id: 3,
+      power_spread_id: 8,
+      children: [{name: 'Obertus'}, {name:'Bratovich'}, {name:'Grimaldi'}, {name:'Zantosa'}, {name:'Ducheski'}]
     }
   ];
   
-  const addMonster = function( type, monster ) {
-    const id = type.get( 'id' );
-
-    models.Monster.findOrCreate({
-      where: {
-        name: monster.name || monster,
-        monster_type_id: id,
-        rarity: monster.rarity || 0,
-      }
-    })
-  };
-  const addMonsterTypes = function( types, prevID ){
-    // TODO: Refactor forEaches to use promise.each
-    types.forEach( function( type ) {
-        models.MonsterType.findOrCreateNode({
-        where: {
-          name: type.name,
-          parent_monster_id: prevID,
-        }
-      })
-      .then( function( instance ) {
-        if( type.rest ) {
-          addMonsterTypes( type.rest, instance.get('id') );
-        }
-        if( type.monsters ) {
-          type.monsters.forEach( function( monster ) {
-            addMonster( instance, monster );
-          });
-        }
-      })
-    });
+  const addMonster = function( monster,id ){
+    addMonsters( monster, id );
   }
-  addMonsterTypes( monsters, null );
+  
+  const addMonsters = function( monsters, id ){
+    monsters.forEach( function( monster ){
+      models.Monster.findOrCreate({
+        where: {
+          name: monster.name,
+          parentId: id
+        }
+      })
+      .spread( function( created ){
+        console.log( created.id );
+        if( monster.children ){
+          addMonster( monster.children , created.id );
+        }
+      })
+    })
+    
+  }
+  
+  addMonsters( monsters, null );
   
     // mortal
       // werewolf
