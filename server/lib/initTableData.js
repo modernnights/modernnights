@@ -193,7 +193,23 @@ module.exports = function( models ) {
     {
       name: 'advantages',
       rest: [
-        { name: 'backgrounds' },
+        { name: 'backgrounds',
+          stats: [
+            'Haven',
+            'Retainer',
+            'Allies',
+            'Contacts',
+            'Fame',
+            'Influence',
+            'Resources',
+            'Generation',
+            'Herd',
+            'Rituals',
+            'Black Hand Membership',
+            'Majordomo',
+            'Family Member'
+          ],
+        },
         {
           name: 'virtues',
           stats: [

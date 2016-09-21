@@ -33,13 +33,31 @@ angular.module( 'modernnights.chargen', [] )
     physical: [],
     talents: [],
     skills: [],
-    knowledges: []
+    knowledges: [],
+    backgrounds: [
+    ]
   }
+  
+  $scope.addBackground = function(){
+    console.log( "Triggered" );
+    $scope.character.backgrounds.push( [] );
+  }
+  
+  $scope.removeBackground = function(){
+    var index = $scope.character.backgrounds.length-1;
+    $scope.character.backgrounds.splice(index);
+  };
+  
    
   var getDropdowns = function(){
     Stat.getArchetypes()
     .then( function( data ){
       $scope.archetypes = data;
+    });
+    
+    Stat.getStatsByType( 'backgrounds' )
+    .then( function( data ){
+      $scope.backgrounds = data;
     });
   };
   
@@ -77,8 +95,8 @@ angular.module( 'modernnights.chargen', [] )
   
   getDropdowns();
   getStandardStats();
-  $scope.standardtrait = [1,2,3,4,5];
-  
+  $scope.standardtrait = [0,1,2,3,4,5];
+ 
   $scope.chargen = function( isValid ) {
     if ( isValid ) {
       Character.create( $scope.character )

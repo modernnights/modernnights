@@ -127,6 +127,28 @@
     <div id="advantages">
       <fieldset id="backgrounds">
         <legend>Backgrounds</legend>
+        
+        <div ng-repeat="$background in character.backgrounds track by $index">
+          <div class="removable row">
+            <div class="column half flushleft">
+              <label>Background Name</label>
+              <select id="backgrounds[]" ng-model="character.backgrounds[$index]['name']">
+                <option ng-repeat="background in backgrounds" value="{{background.id}}">{{background.name}}</option>
+              </select>
+              <button class="remover" ng-show="$last && character.backgrounds.length > 1" ng-click="removeBackground()">Remove</button>
+            </div>
+            
+            <div class="column half">
+              <div ng-repeat="number in standardtrait">
+                <input type="radio" name="background-{{$parent.$index}}" value={{number}} class="statinput" id="background-{{$parent.$index}}-{{number}}" ng-model="character.backgrounds[$parent.$index]['value']" />
+                <label for="background-{{$parent.$index}}-{{number}}" class="statvalue">{{number}}</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <button ng-click="addBackground()">Add Background</button>
+        
       </fieldset>
       
       <fieldset id="powers">
