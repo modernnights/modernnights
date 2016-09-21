@@ -73,13 +73,14 @@ module.exports = function( models ) {
     'Trickster',
     'Visionary'
   ];
+  
   archetypes.forEach( function( archetype ) {
     models.Archetype.findOrCreate({
       where: {
         name: archetype
       }
     });
-  })
+  }) 
 
   
   // todo: bulk-add stat types
@@ -327,7 +328,8 @@ module.exports = function( models ) {
       ],
     },
   ];
-  const addStat = function( type, stat ) {
+ 
+ const addStat = function( type, stat ) {
     const id = type.get( 'id' );
 
     models.Stat.findOrCreate({
@@ -338,6 +340,7 @@ module.exports = function( models ) {
       }
     })
   };
+  
   const addTypes = function( types, prevID ) {
     // TODO: Refactor forEaches to use promise.each
     types.forEach( function( type ) {
@@ -359,7 +362,6 @@ module.exports = function( models ) {
       })
     });
   }
-  addTypes( stats, null );
   // todo: bulk-add spreads
   const spreads = [
     [7, 5, 3],
@@ -381,31 +383,6 @@ module.exports = function( models ) {
       }
     })
   });
-
-
-  models.Character.findOrCreate({
-    where: {
-      name: 'Bob Ross',
-      dbref: '#1',
-      xp: 250,
-      freebies: 0,
-      concept: '',
-      path_value: 8,
-    },
-    includes: [{all: true}]
-  }).spread( function( character, created ) {
-    models.Pool.findOrCreate({ where: { name: 'Willpower' } })
-    .spread( function( pool, created ) {
-      models.CharacterPool.findOrCreate( {
-        where: {
-          character_id: character.get('id'),
-          pool_id: pool.get('id'),
-          value: 8,
-          max: 8,
-        }
-      });
-    });
-  }) 
   
   const monsters = [
     { 
@@ -413,6 +390,7 @@ module.exports = function( models ) {
       attribute_spread_id: 1,
       ability_spread_id: 3,
       power_spread_id: 5,
+      powers: [{name: 'Dominate'}, {name: 'Celerity'}],
       children: [
         {
         name: 'Assamite',
@@ -421,6 +399,7 @@ module.exports = function( models ) {
         },
         {
           name: 'Brujah',
+          powers: [{name:'Presence'}, {name:'Potence'}, {name:'Celerity'}]
         },
         {
           name: 'Cappadocian',
@@ -489,7 +468,7 @@ module.exports = function( models ) {
   
   const addMonster = function( monster,id ){
     addMonsters( monster, id );
-  }
+  };
   
   const addMonsters = function( monsters, id ){
     monsters.forEach( function( monster ){
@@ -499,18 +478,78 @@ module.exports = function( models ) {
           parentId: id
         }
       })
-      .spread( function( created ){
-        console.log( created.id );
+      .spread( function( created ){   
         if( monster.children ){
           addMonster( monster.children , created.id );
         }
+        
       })
-    })
-    
+    })   
+  };
+  
+  const addPower = function( power ){
+    addPowers( power )
+  };
+  
+  const addPowers = function( monsters ){
+  //Associate the powers and monsters 
   }
   
-  addMonsters( monsters, null );
+  models.Character.findOrCreate({
+    where: {
+      name: 'Bob Ross',
+      dbref: '#1',
+      xp: 250,
+      freebies: 0,
+      concept: '',
+      path_value: 8,
+    },
+    includes: [{all: true}]
+  }).spread( function( character, created ) {
+    models.Pool.findOrCreate({ where: { name: 'Willpower' } })
+    .spread( function( pool, created ) {
+      models.CharacterPool.findOrCreate( {
+        where: {
+          character_id: character.get('id'),
+          pool_id: pool.get('id'),
+          value: 8,
+          max: 8,
+        }
+      });
+    });
+  })
   
+  const createChargenData = function( monsterlist, statlist ){
+    var createStats = new Promise( function( resolve, reject ){
+      addTypes( statlist );
+    });
+    
+    var createMonsters = new Promise( function( resolve, reject ){
+      addMonsters( monsterlist, null );
+    });
+    
+    createStats
+    .then( function(){
+      createMonsters
+      .then( function(){
+        addPowers( monsterlist );
+      });      
+    });
+  } 
+  
+  createChargenData( monsters, stats );
+ 
+  
+  
+  /*
+  Table1.find({…}).
+  then(function(a_thing_from_table_1){
+    Table2.find({…}).
+    then(function(a_thing_from_table_2){
+      a_thing_from_table_1.addTable2(a_thing_from_table_2); 
+    }) 
+  })  
+  */
     // mortal
       // werewolf
         // subtype

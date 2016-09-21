@@ -124,9 +124,9 @@
       </fieldset>
     </div>
     
-    <div id="advantages">
-      <fieldset id="backgrounds">
-        <legend>Backgrounds</legend>
+    <div id="advantages" class="row boxframe">
+      <fieldset id="backgrounds" class="column third flushright statblock boxframe" >
+        <legend class="center">Backgrounds</legend>
         
         <div ng-repeat="$background in character.backgrounds track by $index">
           <div class="removable row">
@@ -151,8 +151,19 @@
         
       </fieldset>
       
-      <fieldset id="powers">
-        <legend>Disciplines</legend>
+      <fieldset id="powers" class="column third statblock boxframe">
+        <legend class="center">Disciplines</legend>
+        <div class="statrating">
+          <fieldset ng-repeat="stat in disciplines">
+            <legend>{{stat.name}}</legend`>
+            <div ng-repeat="number in standardtrait">
+              <input type="radio" name="{{stat.name}}" value={{number}} class="statinput" id="{{stat.name}}-{{number}}" ng-model="character.powers[stat.name]" />
+              <label for="{{stat.name}}-{{number}}" class="statvalue">{{number}}</label>
+            </div>
+          </fieldset>
+        </div>
+      </fieldset>
+        
       </fieldset>
       
       <fieldset id="virtues">

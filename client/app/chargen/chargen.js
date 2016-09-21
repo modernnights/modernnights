@@ -34,8 +34,8 @@ angular.module( 'modernnights.chargen', [] )
     talents: [],
     skills: [],
     knowledges: [],
-    backgrounds: [
-    ]
+    backgrounds: [],
+    powers: []
   }
   
   $scope.addBackground = function(){
@@ -90,6 +90,11 @@ angular.module( 'modernnights.chargen', [] )
     Stat.getStatsByType( 'knowledges' )
     .then( function(data){
       $scope.knowledges = data;
+    });
+    
+    Stat.getStatsByType( 'disciplines' )
+    .then( function(data){
+      $scope.disciplines = data;
     });
   };
   
