@@ -43,12 +43,13 @@ angular.module( 'modernnights.chargen', [] )
     $scope.character.backgrounds.push( [] );
   }
   
+  
   $scope.removeBackground = function(){
     var index = $scope.character.backgrounds.length-1;
     $scope.character.backgrounds.splice(index);
   };
   
-   
+ 
   var getDropdowns = function(){
     Stat.getArchetypes()
     .then( function( data ){

@@ -11,11 +11,18 @@
     <script src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
     <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Medula+One" rel="stylesheet">
     <link rel="stylesheet" href="/lib/css/index.css">
   </head>
   <body>
-    <dst-main-nav></dst-main-nav>
-    <div ng-view>
+    <div id="container">
+      <div id="body">
+        <dst-main-nav></dst-main-nav>
+        <div class="cincher">
+          <div ng-view>
+          </div>
+        </div>
+      </div>
     </div>
   </body>
   <script src="/lib/js/sfx.js"></script>
