@@ -85,7 +85,8 @@
 ################################################ */ 
   html, body {
     height: 100%;
-    background: #0b0000;
+    background: #f1f1fa;
+    background-image: url("/../assets/bgtexture.jpg");
   }  
  
 	#container {
@@ -99,6 +100,16 @@
     padding-bottom: 100px;
 	}	
 	
+  .cincher{
+    max-width: 1400px;
+    margin: 0 auto;
+    background: rgba(242,245,240,.75);
+    padding: 2em;
+    box-sizing: border-box;
+    border-radius: 1px;
+    box-shadow: 3px 3px 20px rgba(0,0,0,.5);
+  }
+  
 	#footer{
     position: absolute;
     bottom:0;
@@ -300,6 +311,7 @@ label, .aslabel {
   font-weight: 700;
   display: block;
   cursor: pointer;
+  color: #322;
   margin-top: .75rem;
 }
   
@@ -470,8 +482,6 @@ textarea{
     outline: 3px solid #F2001C;
   }
 
-legend{ color: white; }
-
 /* CHARACTER GENERATION */
 
 
@@ -482,7 +492,7 @@ legend{ color: white; }
 ################################################ */ 
 
 /* MISC TYPEBASE */
-body { color: white; }
+body { color: #322; }
   /* For anti-aliasing */
   html { 
     text-shadow: 1px 1px 2px rgba(0,0,0,.15);
@@ -499,22 +509,22 @@ body { color: white; }
 /* HEADINGS */
 
   h1, .size1 {
-    font-size: 2rem;
+    font-size: 4rem;
   }
   h2, .size2 {
-    font-size: 1.6rem;
+    font-size: 2.3rem;
   }
   h3, .size3 {
-    font-size: 1.28rem;
+    font-size: 2.56rem;
   }
   h4, .size4 {
-    font-size: 1rem;
+    font-size: 2rem;
   }
   h5, .size5 {
-    font-size: 1rem;
+    font-size: 2rem;
   }
   h6, .size6 {
-    font-size: 1rem;
+    font-size: 2rem;
     font-weight: 700;
   }
 
@@ -532,7 +542,13 @@ body { color: white; }
     margin-top: 1.33rem;
     margin-bottom: 0;
     line-height: 1.5em;
-    font-family: "Open Sans Condensed", sans-serif;
+    font-family: "Medula One", serif;
+    color: #7a0000;
+  }
+  
+  .display-font{
+    font-family: "Medula One", serif;
+    color: #7a0000;
   }
   
   /* COPY AND LISTS */
@@ -578,10 +594,12 @@ body { color: white; }
   }
   
   .boxframe{
-    background-color: rgba(255,255,255,0.5);
-    border-radius: .25em;
+    background-color: rgba(100,105,100,.1250);
+    border-radius:2px;
     box-sizing: border-box;
-    border: 2px inset black;
+    padding: .66em;
+    border: 1px inset rgba(50,70,50,.25);
+    box-shadow: 3px 3px 20px rgba(0,0,0,.5);
   }
 
 /* ###############################################
