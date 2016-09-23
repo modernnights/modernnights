@@ -40,21 +40,24 @@
       </div>
     </div>
     
-    <div id="attributes" class="row boxframe">
-      <fieldset id="Physical" class="column third flushleft boxframe">
+    <div id="attributes" class="row">
+      <fieldset id="Physical" class="column third flushleft">
+      <div class="boxframe">
         <legend class="center">Physical</legend>
         <div class="statrating">
           <fieldset ng-repeat="stat in physicalattributes">
             <legend>{{stat.name}}</legend`>
-            <div ng-repeat="number in standardtrait">
-              <input type="radio" name="{{stat.name}}" value={{number}} class="statinput" id="{{stat.name}}-{{number}}" ng-model="character.social[stat.name]" />
+            <div ng-repeat="number in standardtrait" class="rating">
+              <input type="radio" name ="{{stat.name}}" value={{number}} id="{{stat.name}}-{{number}}" class="statinput" ng-model="character.physical[stat.name]" />
               <label for="{{stat.name}}-{{number}}" class="statvalue">{{number}}</label>
             </div>
           </fieldset>
         </div>
+      </div>
       </fieldset>
       
-      <fieldset id="Social" class="column third statblock boxframe">
+      <fieldset id="Social" class="column third statblock">
+        <div class="boxframe">
         <legend class="center">Social</legend>
         <div class="statrating">
           <fieldset ng-repeat="stat in socialattributes">
@@ -65,9 +68,11 @@
             </div>
           </fieldset>
         </div>
+        </div>
       </fieldset>
       
-      <fieldset id="Mental" class="column third flushright statblock boxframe">
+      <fieldset id="Mental" class="column third flushright statblock">
+        <div class="boxframe">
         <legend class="center">Mental</legend>
         <div class="statrating">
           <fieldset ng-repeat="stat in mentalattributes">
@@ -79,6 +84,7 @@
           </fieldset>
         </div>
       </fieldset>
+      </div>
     </div>
       
     
@@ -135,7 +141,7 @@
               <select id="backgrounds[]" ng-model="character.backgrounds[$index]['name']">
                 <option ng-repeat="background in backgrounds" value="{{background.id}}">{{background.name}}</option>
               </select>
-              <button class="remover" ng-show="$last && character.backgrounds.length > 1" ng-click="removeBackground()">Remove</button>
+              <span class="asbutton remover" ng-show="$last && character.backgrounds.length > 1" ng-click="removeBackground()">Remove</span>
             </div>
             
             <div class="column half">
@@ -147,7 +153,7 @@
           </div>
         </div>
         
-        <button ng-click="addBackground()">Add Background</button>
+        <span class="asbutton" ng-click="addBackground()">Add Background</span>
         
       </fieldset>
       
