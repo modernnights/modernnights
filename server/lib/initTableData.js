@@ -308,19 +308,19 @@ module.exports = function( models ) {
             { 
               name: 'merits',
               stats: [
-                'acute hearing',
-                'common sense',
-                'harmless',
-                'deceptive aura',
+              {name: 'acute hearing', values: [1] },
+              {name: 'common sense', values: [1] },
+              {name: 'harmless', values: [1] },
+              {name: 'deceptive aura', values: [1] }
               ]
             },
             { 
               name: 'flaws',
               stats: [
-                'bad sight',
-                'nightmares',
-                'dark secret',
-                'repulsed by garlic',
+              { name: 'bad sight', values: [-1,-3] },
+              { name: 'nightmares', values: [-1] },
+              { name: 'dark secret', values: [-1]},
+              { name: 'repulsed by garlic', values: [-1] }
               ],
             },
           ],
@@ -328,18 +328,34 @@ module.exports = function( models ) {
       ],
     },
   ];
+  
+ const quirkValues = [
+   { name: 'scaling merit', value: '1 2 3 4 5' },
+   { name: 'scaling flaw', value: '-1 -2 -3 -4 -5'}
+ ]
  
- const addStat = function( type, stat ) {
-    const id = type.get( 'id' );
+const addStat = function( type, stat ) {
+  const id = type.get( 'id' );
 
-    models.Stat.findOrCreate({
-      where: {
-        name: stat.name || stat,
-        stat_type_id: id,
-        rarity: stat.rarity || 0,
-      }
-    })
-  };
+  models.Stat.findOrCreate({
+    where: {
+      name: stat.name || stat,
+      stat_type_id: id,
+      rarity: stat.rarity || 0,
+    }
+  })
+  .then( function( stat ){
+    //if it has values to assign 
+    if( stat.values ){
+      stat.values.forEach( function( value ){
+        models.Quirks.findOrCreate({
+          where: 
+          { stat_id: stat.id, value: value }
+        })
+      })
+    }  
+  })
+};
   
   const addTypes = function( types, prevID ) {
     // TODO: Refactor forEaches to use promise.each

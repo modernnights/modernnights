@@ -35,14 +35,23 @@ angular.module( 'modernnights.chargen', [] )
     skills: [],
     knowledges: [],
     backgrounds: [],
-    powers: []
+    powers: [],
+    virtues: [],
+    quirks: []
   }
   
   $scope.addBackground = function(){
-    console.log( "Triggered" );
     $scope.character.backgrounds.push( [] );
   }
   
+  $scope.addQuirk = function(){
+    $scope.character.quirks.push( [] );
+  }
+  
+  $scope.removeQuirk = function(){
+    var index = $scope.character.quirks.length-1;
+    $scope.character.quirks.splice(index);
+  }  
   
   $scope.removeBackground = function(){
     var index = $scope.character.backgrounds.length-1;
@@ -97,6 +106,16 @@ angular.module( 'modernnights.chargen', [] )
     .then( function(data){
       $scope.disciplines = data;
     });
+    
+    Stat.getStatsByType( 'virtues' )
+    .then( function(data){
+      $scope.virtues = data;
+    })
+   
+    Stat.getStatsByType( 'quirks' )
+    .then( function( data ){
+      $scope.quirks = data; 
+    })
   };
   
   getDropdowns();
