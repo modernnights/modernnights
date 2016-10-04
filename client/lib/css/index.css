@@ -1,51 +1,638 @@
-body {
-  background-image: radial-gradient(ellipse at center, rgba(0,0,0,0) 40%, rgba(0,0,0,1) 100%),
-    url('/assets/wall.jpg');
-  background-color: #8b0000;
-  background-blend-mode: color-burn;
+/* ###############################################
+*
+* CSS Reset 
+*
+################################################ */ 
+
+  html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp, small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, figcaption, figure,  footer, header, hgroup, menu, nav, section, summary, time, mark, audio, video {
+    margin:0;
+    padding:0;
+    border:0;
+    outline:0;
+    font-size:100%;
+    vertical-align:baseline;
+    background:transparent;
+  }
+
+  body {
+    line-height:1;
+  }
+
+  article,aside,details,figcaption,figure, footer,header,hgroup,menu,nav,section { 
+    display:block;
+  }
+
+  nav ul {
+    list-style:none;
+  }
+
+  ul {
+    list-style-type:none;
+  }
+
+  blockquote, q {
+    quotes:none;
+  }
+
+  blockquote:before, blockquote:after,
+  q:before, q:after {
+    content:'';
+    content:none;
+  }
+
+  html, body {
+    margin:0;
+    padding:0;
+    height:100%;
+  }
+
+  a {
+    margin:0;
+    padding:0;
+    font-size:100%;
+    vertical-align:baseline;
+    background:transparent;
+  }
+
+  abbr[title], dfn[title] {
+    border-bottom:1px dotted;
+    cursor:help;
+  }
+
+
+  table {
+    border-collapse:collapse;
+    border-spacing:0;
+  }
+
+  hr {
+    display:block;
+    height:1px;
+    border:0;   
+    border-top:1px solid #cccccc;
+    margin:1em 0;
+    padding:0;
+  }
+
+  input, select {
+    vertical-align:middle;
+  }
+  
+/* ###############################################
+*
+* Structure
+*
+################################################ */ 
+  html, body {
+    height: 100%;
+    background: #f1f1fa;
+    background-image: url("/../assets/bgtexture.jpg");
+  }  
+ 
+	#container {
+		min-height:100%;
+    position: relative;
+    overflow: hidden;
+    overflow: auto; 
+	}
+  
+  #body {
+    padding-bottom: 100px;
+	}	
+	
+  .cincher{
+    max-width: 1400px;
+    margin: 0 auto;
+    background: rgba(242,245,240,.75);
+    padding: 2em;
+    box-sizing: border-box;
+    border-radius: 1px;
+    box-shadow: 3px 3px 20px rgba(0,0,0,.5);
+  }
+  
+	#footer{
+    position: absolute;
+    bottom:0;
+    width: 80%;
+    box-sizing: border-box;
+    height: 50px; s
+    border-top: 1px solid #d1d8e6;
+    padding: 1em 0;
+    margin: 0 auto;
+    text-align: center;
+    color: #7e899f;
+    font-size: .85em;
+	}
+  
+  #header{
+    padding: .33rem;
+    background: #ffffff;
+    border-bottom: 1px solid #d1d8e6;
+    position: relative;
+    height: 4rem;
+  }
+  #header nav{
+    position: absolute;
+    right: 1rem;
+    top: 1.5rem;
+  }
+  
+  #header a{
+    padding: .5rem;
+    border-radius: 5px;
+    background: #c1e8e8;
+    border: 1px solid #29412f;   
+    border-bottom: 2px solid #29412f;   
+    color:  #596378;
+    margin: 0 .5rem;
+  }
+  
+  a, a:hover {
+  color: #4f90e8;
+  text-decoration: none;
+    transition: .25s ease-in-out;
+    -moz-transition: .25s ease-in-out;
+    -webkit-transition: .25s ease-in-out;  
+  }
+    
+  #header a.orangebutton{
+    background: #ff7000;
+    border: 1px solid #e66500;
+    color: #ffffff;
+    border-bottom: 2px  solid #cd5a00;
+  }
+  
+  #header a:hover{
+    color: #ffffff;
+    background: #4f90e8;
+    border: 1px solid #334d39;
+    border-bottom: 2px solid #334d39;
+       transition: .25s ease-in-out;
+      -moz-transition: .25s ease-in-out;
+      -webkit-transition: .25s ease-in-out;  
+  }
+  
+/* ########## Responsive Layout ################ */
+
+  .floatedcontainer{
+    overflow: auto; 
+  }
+
+.row, .column{
+  float: left;
+  box-sizing:border-box;
+  right:0;
 }
+.row{
+  width:100%;
+  clear:both;
+  padding:.33rem;
+  margin-right:0;
+  margin-left:0;
+}   
+
+.column{
+  padding:.66rem;
+}
+
+.half{
+  width:50%;
+}
+
+.third{
+  width:33.3%;
+}
+  .twothirds{
+    width:66.6%;
+  }
+  
+.fourth{
+  width:25%;
+}
+  .threefourths{
+    width:75%;
+  }
+  
+.fifth{
+  width:20%;
+}
+  .twofifths{
+    width:40%;
+  }
+  .threefifths{
+    width:60%;
+  }
+  .fourfifths{
+    width:80%;
+  }
+  
+.sixth{
+  width:16.66%;
+  }
+  .fivesixths{
+    width:83.3%;
+  }
+  
+
+/* BREAKPOINTS */
+
+@media( max-width:800px ){
+  .fourth, .third {
+    width:50%;
+  }
+
+  .twothirds, .threefourths{
+    width:50%;
+  }
+
+  .fourth{
+    width:33.3%;
+  }
+}
+
+@media ( max-width: 900px ){
+  .fourth{
+    width:100%;
+    padding-left:0;
+  }
+  .threefourths{
+    width:100%;
+    padding-left:0;
+  }
+}
+
+@media ( max-width: 680px ) {
+  .fourfifths, .fifth {
+    width: 50%;
+  }
+}
+
+@media (max-width: 600px){
+  .half, .third, .twothirds, .fifth, .fourfifths {
+    width:100%;
+    padding-left:0;
+  }
+}
+/* ###############################################
+*
+* Forms
+*
+################################################ */ 
+  
+form {
+  padding: .25rem;
+  box-sizing:border-box;
+}
+  
+input, select {
+  margin: .25rem 0;
+}
+
+fieldset{
+  padding: .5rem 0;
+  box-sizing: border-box;
+}
+  
+legend{
+  font-size:1.5rem;
+  font-weight: 700;
+  float: left;
+  width: 100%;
+  padding: .5rem 0;
+}
+
+legend:after{
+  content: "";
+  display: block;
+  height: .25rem;
+}
+
+label, .aslabel {
+  font-weight: 700;
+  display: block;
+  cursor: pointer;
+  color: #322;
+  margin-top: .75rem;
+}
+  
+/* Captions, text, etc. */
+
+.fieldhelp {
+  font-size: .85rem;
+  color: #888;
+  font-style:italic;
+  margin-top:0;
+}
+
+/* Fillable Form Fields and Dropdowns */
+textarea, input[type="text"], input[type="email"], input[type="password"], input[type="date"], input[type="time"], input[type="tel"], input[type="email"], input[type="number"], select, input[type="search"], input[type="password"], select {
+  width:100%;
+  height: 30px;
+  border:none;
+  outline:1px solid #506262;
+  padding:.66em .33em;
+  background: #fff;
+  color: #000;
+  box-sizing:border-box;
+  transition: .25s ease-in-out;
+    -moz-transition: .25s ease-in-out;
+    -webkit-transition: .25s ease-in-out;
+}
+select {
+  padding: 0;
+}
+
+textarea{
+  resize: none;
+  height: 100px;
+  width:100%;
+  box-sizing:border-box;
+}
+
+/* Input with button fixed to right */
+.inputwrapper{
+  margin-top:.23em;
+  border: 1px solid #506262;
+  display: inline-block;
+  position: relative;
+  width: 100%;
+  box-sizing: border-box;
+  background:#ffffff;
+}
+
+.inputwrapper input, .inputwrapper select {
+  border: 0;
+  outline: 0;
+  margin: 0;
+  padding: .33em 0;
+  position:relative;
+  width: 100%;
+  box-sizing:border-box;
+  cursor: pointer;
+  cursor: hand;
+}
+
+
+.inputwrapper button, .inputwrapper span{
+  border:1px solid #3b7477;
+  position: absolute;
+  height:30px;
+  right:0px;
+  top: 0px;
+  margin: 0;
+  border-radius:0;
+  height: 2.25em;
+  line-height:2px;
+  background: #3b7477;
+} 
+
+.inputwrapper button, .inputwrapper .asbutton {
+  transition: .25s ease-in-out;
+      -moz-transition: .25s ease-in-out;
+      -webkit-transition: .25s ease-in-out;
+}
+.inputwrapper span{
+  height:29px;
+  padding:0 10px;
+  line-height:30px;
+}
+
+.inputwrapper button:hover{
+  background: #3b7477;
+  color: #ffffff;
+  transition: .25s ease-in-out;
+      -moz-transition: .25s ease-in-out;
+      -webkit-transition: .25s ease-in-out;
+}
+
+/* Checkboxes and radios - hide the original unless you are from 1857  */ 
+[type="radio"]:not(old), [type="checkbox"]:not(old) {
+  border: 0;
+  clip: rect(0 0 0 0); 
+  height: 1px; margin: -1px; 
+  overflow: hidden; 
+  padding: 0; 
+  position: absolute; 
+  width: 1px;
+}
+
+  /* Unchecked radio and checkboxes */
+    [type="radio"] + span:before, [type="radio"] + label:before {
+      content: '';
+      display: inline-block;
+      width: .5em;
+      height: .5em;
+      vertical-align: middle;
+      border-radius: 1em;
+      border: 0.125em solid #fff;
+      box-shadow: 0 0 0 0.05em #888;
+      margin: .5em;
+      margin-right: 0.5em;
+      transition: 0.25s ease all;
+      cursor: pointer;
+      background: white;
+    }
+   
+    [type="checkbox"] + label:before, [type="checkbox"] + span:before {
+      display: inline-block;
+      content: '';
+      width: 1.5em;
+      height: 1.5em;
+      vertical-align:-.35em;
+      border:1px solid #506262;
+      border-radius:2px;
+      background: #ffffff;
+      margin-right:.5em;
+      transition: 0.25s ease all;
+    }
+    
+    .required:after {
+      content:"*";
+      color: #3b7477;
+      display: inline-block;
+    }
+    
+  /* Checked radio and checkboxes */ 
+    [type="radio"]:checked + span:before, [type="radio"]:checked + label:before {
+      background: #000000;
+      box-shadow: 0 0 0 0.05em #888;
+    }
+  
+    input[type="checkbox"]:checked + label:before{
+      background-image: url('../img/checkmark.png');
+      background-size: 100%;
+      border: 1px solid #FFFFFF;
+      transition: 0.25s ease all;
+    }  
+  
+/* Focus States */ 
+  input[type="radio"]:focus + span:before, input[type="radio"]:focus + label:before  {
+    background: #3b7477;
+  }
+
+  input:focus, select:focus, textarea:focus {
+    box-shadow: 
+    0px 0px 10px rgba(0,0,0,0.5),
+    0px 5px 10px rgba(0,0,0,0.05),
+    0px 10px 10px rgba(0,0,0,0.05),
+    0px 15px 10px rgba(0,0,0,0.05);
+    transition: .25s ease-in-out;
+      -moz-transition: .25s ease-in-out;
+      -webkit-transition: .25s ease-in-out;
+    outline: 2px solid #3b7477;
+  }
+
+/* CHARACTER GENERATION */
+
+
+/* ###############################################
+*
+* Typebase
+*
+################################################ */ 
+
+/* MISC TYPEBASE */
+body { color: #322; }
+  /* For anti-aliasing */
+  html { 
+    text-shadow: 1px 1px 2px rgba(0,0,0,.15);
+    font-size: 100%; 
+    -webkit-font-smoothing: antialiased;
+  }
+
+ .maxwidth{ 
+    max-width: 1200px; 
+    margin: 0 auto;
+    float: none;
+  }
+
+/* HEADINGS */
+
+  h1, .size1 {
+    font-size: 4rem;
+  }
+  h2, .size2 {
+    font-size: 2.3rem;
+  }
+  h3, .size3 {
+    font-size: 2.56rem;
+  }
+  h4, .size4 {
+    font-size: 2rem;
+  }
+  h5, .size5 {
+    font-size: 2rem;
+  }
+  h6, .size6 {
+    font-size: 2rem;
+    font-weight: 700;
+  }
+
+  h1 + p, 
+  h2 + p, 
+  h3 + p, 
+  h4 + p, 
+  h5 + p, 
+  h6 + p {
+    margin-top:0;
+  }
+
+  h1,h2,h3,h4,h5,h6, .asheader {
+    font-weight: 700;
+    margin-top: 1.33rem;
+    margin-bottom: 0;
+    line-height: 1.5em;
+    font-family: "Medula One", serif;
+    color: #7a0000;
+  }
+  
+  .display-font{
+    font-family: "Medula One", serif;
+    color: #7a0000;
+  }
+  
+  /* COPY AND LISTS */
+  p, blockquote {
+    line-height: 1.5rem;
+    margin-top: 1.33rem;
+    margin-bottom: 0;
+  } 
+
+  address{
+    line-height: 1.5rem;
+    font-size: 1rem;
+    font-style: normal;
+  }
+
+  ul, ol {
+    margin: 1.5rem 0;
+  }
+  ul li, ol li {
+    line-height: 1.5rem;
+  }
+
+  ul ul, ol ul, ul ol, ol ol {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  
+  /* TABLE TYPEBASE */
+  table {
+    margin-top: 1.5rem;
+    border-spacing: 0px;
+    border-collapse: collapse;
+  }
+  table td,
+  table th {
+    padding: 0;
+    line-height: 33px;
+  }
+  
+  /* CODE BLOCKS */
+  code {
+    vertical-align: bottom;
+  }
+  
+  .boxframe{
+    background-color: rgba(100,105,100,.1250);
+    border-radius:2px;
+    box-sizing: border-box;
+    padding: .66em;
+    border: 1px inset rgba(50,70,50,.25);
+    box-shadow: 3px 3px 20px rgba(0,0,0,.5);
+  }
+  
+  
+button, .asbutton{
+  padding: .5rem;
+  border-radius: 5px;
+  background: linear-gradient(to bottom, #35483a, #263329 );
+  border: 1px solid #29412f;   
+  border-bottom: 2px solid #29412f;   
+  color:  #f0f0f0;
+  margin: 0 .5rem;
+}
+button:hover, .asbutton:hover {
+   color: #ffffff;
+    background: #44664c;
+    border: 1px solid #334d39;
+    border-bottom: 2px solid #334d39;
+}
+
+/* ###############################################
+*
+* Gravy
+*
+################################################ */ 
+
+.center{ text-align: center; }
+.statvalue{ float: left; }
+.statinput:checked + .statvalue { background-color: black; border-radius: 100%; }
+.statinput:checked ~ .statvalue { background-color: red; }
+.statblock: { outline: 2px solid grey; }
 
 ul {
   list-style: none;
-}
-
-html, body {
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-}
-
-body > div {
-  height: 100%;
-  overflow: scroll;
-  -webkit-overflow-scrolling: touch;
-}
-
-.text-outline {
-  text-shadow: 1px 1px 0 #000,
-    -1px 1px 0 #000,
-    1px -1px 0 #000,
-    -1px -1px 0 #000,
-    0px 1px 0 #000,
-    0px -1px 0 #000,
-    -1px 0px 0 #000,
-    1px 0px 0 #000,
-    2px 2px 0 #000,
-    -2px 2px 0 #000,
-    2px -2px 0 #000,
-    -2px -2px 0 #000,
-    0px 2px 0 #000,
-    0px -2px 0 #000,
-    -2px 0px 0 #000,
-    2px 0px 0 #000,
-    1px 2px 0 #000,
-    -1px 2px 0 #000,
-    1px -2px 0 #000,
-    -1px -2px 0 #000,
-    2px 1px 0 #000,
-    -2px 1px 0 #000,
-    2px -1px 0 #000,
-    -2px -1px 0 #000;
 }
 
 .error {
@@ -57,42 +644,33 @@ body > div {
   font-size: 0.75em;
   color: antiquewhite;
 }
-
-div {
-  text-align: center;
-  font-size: 3rem;
-  color: beige;
-}
-
 nav {
-  display: flex;
-  flex-direction: row-reverse;
-  justify-content: center;
+    background: linear-gradient(to bottom, rgba(0,37,10,.75), rgba(0,18,05,.75) );
+  text-align: center;
+  margin-bottom: 2rem;
 }
+
 
 nav a {
-  display: block;
+  display: inline-block;
   font-size: 0.75em;
-  padding: 10px 20px;
-  border-bottom: 1px solid rgba(1,1,1,0);
+  color: #ffffff;
+  padding: 2rem 1rem;
+  margin: 0;
   transition-duration: .5s;
   transition-property: border-bottom opacity;
+  border-radius: 5px;
 }
 
 nav a:hover {
   text-decoration: none;
-  color: #428bca;
-  border-bottom: 1px solid red;
-  opacity: .5;
+  color: #fff;
+  background: rgba(255,255,255,.1);
+  box-sizing: border-box;
 }
-
 
 /* CHARGEN */
-.chargen li label {
-  text-align: left;
-  width: 200px;
-  margin-right: 15px;
-}
+
 
 /* ROSTER */
 .characterPortrait {
@@ -114,6 +692,5 @@ nav a:hover {
     margin-right: 15px;
   }
 }
-
 
 

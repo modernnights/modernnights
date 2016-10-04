@@ -1,16 +1,220 @@
-<h1>Coming Soon...</h1>
-<h3>Character generation in the browser</h3>
+<h1>Character Generation</h1>
 
 <div id='chargen'>
   <form name="chargenForm" ng-submit='chargen( chargenForm.$valid )' novalidate>
-    <ul class="chargen">
-      <li><label for="nameInput">NAME</label><input name="nameInput" type='text' ng-model='character.name' ng-class="{ 'error': chargenForm.nameInput.$invalid && shortenForm.$dirty }" required></li>
-      <li><label for="dbrefInput">DBREF</label><input name="dbrefInput" type='text' ng-model='character.dbref' ng-class="{ 'error': chargenForm.dbrefInput.$invalid && shortenForm.$dirty }" required></li>
-      <li><label for="conceptInput">CONCEPT</label><input name="conceptInput" type='text' ng-model='character.concept' ng-class="{ 'error': chargenForm.conceptInput.$invalid && shortenForm.$dirty }" required></li>
-      <li><label for="xpInput">XP</label><input name="xpInput" type='number' ng-model='character.xp' ng-class="{ 'error': chargenForm.xpInput.$invalid && shortenForm.$dirty }" required></li>
-    </ul>
+    <div id="classification" class="row">
+      <div class="column half flushleft">
+      <label for="name">Name</label>
+      <input type="text" ng-model="character.name" id="name" />
+      
+      <label for="nature">Nature</label>
+      <select id="nature" ng-model="character.nature">
+        <option ng-repeat="archetype in archetypes" value="{{archetype.id}}">{{archetype.name}}</option>
+      </select>
+      
+      <label for="demeanor">Demeanor</label>
+      <select id="demeanor" ng-model="character.demeanor">
+        <option ng-repeat="archetype in archetypes" value="{{archetype.id}}">{{archetype.name}}</option>
+      </select>
+      </div>
+      
+      <div class="column half flushright">
+        <label for="template">Template</label>
+        <select id="template" name="template" ng-model="character.template" ng-change="updatemonsterselection()">
+          <option ng-repeat="template in templates" value="{{template}}">{{template}}</option>
+        </select>
+      
+        <div ng-show="monsterselection != null">
+          <label for="classification">Clan</label>
+          <select id="classification" ng-model="character.monstertype" ng-change="updatemonstersubselection( character.monstertype )">
+            <option ng-repeat="monstertype in monsterselection" value="{{monstertype.id}}">{{monstertype.name}}</option>
+          </select>
+        </div>
+        
+        <div ng-show="monstersubselection.length > 1">
+          <label for="bloodline">Bloodline</label>
+          <select id="bloodline" ng-model="character.monstersubtype" ng-change="setmonster_id( character.monstersubtype )">
+            <option ng-repeat="monster in monstersubselection" value="{{monster.id}}">{{monster.name}}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    
+    <div id="attributes" class="row">
+      <fieldset id="Physical" class="column third flushleft">
+      <div class="boxframe">
+        <legend class="center">Physical</legend>
+        <div class="statrating">
+          <fieldset ng-repeat="stat in physicalattributes">
+            <legend>{{stat.name}}</legend`>
+            <div ng-repeat="number in standardtrait" class="rating">
+              <input type="radio" name ="{{stat.name}}" value={{number}} id="{{stat.name}}-{{number}}" class="statinput" ng-model="character.physical[stat.name]" />
+              <label for="{{stat.name}}-{{number}}" class="statvalue">{{number}}</label>
+            </div>
+          </fieldset>
+        </div>
+      </div>
+      </fieldset>
+      
+      <fieldset id="Social" class="column third statblock">
+        <div class="boxframe">
+        <legend class="center">Social</legend>
+        <div class="statrating">
+          <fieldset ng-repeat="stat in socialattributes">
+            <legend>{{stat.name}}</legend`>
+            <div ng-repeat="number in standardtrait">
+              <input type="radio" name="{{stat.name}}" value={{number}} class="statinput" id="{{stat.name}}-{{number}}" ng-model="character.social[stat.name]" />
+              <label for="{{stat.name}}-{{number}}" class="statvalue">{{number}}</label>
+            </div>
+          </fieldset>
+        </div>
+        </div>
+      </fieldset>
+      
+      <fieldset id="Mental" class="column third flushright statblock">
+        <div class="boxframe">
+        <legend class="center">Mental</legend>
+        <div class="statrating">
+          <fieldset ng-repeat="stat in mentalattributes">
+            <legend>{{stat.name}}</legend`>
+            <div ng-repeat="number in standardtrait">
+              <input type="radio" name="{{stat.name}}" value={{number}} class="statinput" id="{{stat.name}}-{{number}}" ng-model="character.mental[stat.name]" />
+              <label for="{{stat.name}}-{{number}}" class="statvalue">{{number}}</label>
+            </div>
+          </fieldset>
+        </div>
+      </fieldset>
+      </div>
+    </div>
+      
+    
+    
+    <div id="abilities" class="row">
+      <fieldset id="Talents" class="column third flushleft">
+        <div class="boxframe">
+          <legend>Talents</legend>
+          <div class="statrating">
+            <fieldset ng-repeat="stat in talents">
+              <legend>{{stat.name}}</legend`>
+              <div ng-repeat="number in standardtrait">
+                <input type="radio" name="{{stat.name}}" value={{number}} class="statinput" id="{{stat.name}}-{{number}}" ng-model="character.talents[stat.name]" />
+                <label for="{{stat.name}}-{{number}}" class="statvalue">{{number}}</label>
+              </div>
+            </fieldset>
+          </div>
+        </div>
+      </fieldset>
+      
+      <fieldset id="Skills" class="column third">
+        <div class="boxframe">
+          <legend>Skills</legend>
+          <div class="statrating">
+            <fieldset ng-repeat="stat in skills">
+              <legend>{{stat.name}}</legend`>
+              <div ng-repeat="number in standardtrait">
+                <input type="radio" name="{{stat.name}}" value={{number}} class="statinput" id="{{stat.name}}-{{number}}" ng-model="character.skills[stat.name]" />
+                <label for="{{stat.name}}-{{number}}" class="statvalue">{{number}}</label>
+              </div>
+            </fieldset>
+          </div>
+        </div>
+      </fieldset>
+      
+      <fieldset id="Knowledges" class="column third flushright">
+        <div class="boxframe">
+          <legend>Knowledges</legend>
+          <div class="statrating">
+            <fieldset ng-repeat="stat in knowledges">
+              <legend>{{stat.name}}</legend`>
+              <div ng-repeat="number in standardtrait">
+                <input type="radio" name="{{stat.name}}" value={{number}} class="statinput" id="{{stat.name}}-{{number}}" ng-model="character.knowledges[stat.name]" />
+                <label for="{{stat.name}}-{{number}}" class="statvalue">{{number}}</label>
+              </div>
+            </fieldset>
+          </div>
+        </div>
+      </fieldset>
+    </div>
+    
+    <div id="advantages" class="row boxframe">
+      <fieldset id="backgrounds" class="column third flushright statblock boxframe" >
+        <legend class="center">Backgrounds</legend>
+        
+        <div ng-repeat="$background in character.backgrounds track by $index">
+          <div class="removable row">
+            <div class="column half flushleft">
+              <label>Background Name</label>
+              <select id="backgrounds[]" ng-model="character.backgrounds[$index]['name']">
+                <option ng-repeat="background in backgrounds" value="{{background.id}}">{{background.name}}</option>
+              </select>
+              <span class="asbutton remover" ng-show="$last" ng-click="removeBackground()">Remove</span>
+            </div>
+            
+            <div class="column half">
+              <div ng-repeat="number in standardtrait">
+                <input type="radio" name="background-{{$parent.$index}}" value={{number}} class="statinput" id="background-{{$parent.$index}}-{{number}}" ng-model="character.backgrounds[$parent.$index]['value']" />
+                <label for="background-{{$parent.$index}}-{{number}}" class="statvalue">{{number}}</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <span class="asbutton" ng-click="addBackground()">Add Background</span>
+        
+      </fieldset>
+      
+      <fieldset id="powers" class="column third statblock boxframe">
+        <legend class="center">Disciplines</legend>
+        <div class="statrating">
+          <fieldset ng-repeat="stat in disciplines">
+            <legend>{{stat.name}}</legend`>
+            <div ng-repeat="number in standardtrait">
+              <input type="radio" name="{{stat.name}}" value={{number}} class="statinput" id="{{stat.name}}-{{number}}" ng-model="character.powers[stat.name]" />
+              <label for="{{stat.name}}-{{number}}" class="statvalue">{{number}}</label>
+            </div>
+          </fieldset>
+        </div>
+      </fieldset>
+      
+      <fieldset id="Virtues" class="column third flushright">
+        <legend>Virtues</legend>
+        <div class="statrating">
+          <fieldset ng-repeat="stat in virtues">
+            <legend>{{stat.name}}</legend`>
+            <div ng-repeat="number in standardtrait">
+              <input type="radio" name="{{stat.name}}" value={{number}} class="statinput" id="{{stat.name}}-{{number}}" ng-model="character.virtues[stat.name]" />
+              <label for="{{stat.name}}-{{number}}" class="statvalue">{{number}}</label>
+            </div>
+          </fieldset>
+        </div>
+      </fieldset>
+    </div>
+    
+    <div id="merits-and-flaws" class="row">
+    <fieldset>
+      <legend>Merits And Flaws</legend>
+      
+       <div ng-repeat="$quirk in character.quirks track by $index">
+          <div class="removable row">
+          
+              <label>Trait Name</label>
+              <select id="quirks[]" ng-model="character.quirks[$index]['name']">
+                <option ng-repeat="quirk in quirks" value="{{quirk.id}}">{{quirk.name}}</option>
+              </select>
+              <span class="asbutton remover" ng-show="$last" ng-click="removeQuirk()">Remove</span>
+        
+          
+          </div>
+        </div>
+        
+           <span class="asbutton" ng-click="addQuirk()">Add New</span>
+        
+      
+    </fieldset>
+    
+    
+    </div> 
+      
     <button>Create</button>
   </form>
-
-  {{ character }}
 </div>

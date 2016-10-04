@@ -15,6 +15,64 @@ angular.module( 'modernnights.services', [] )
   }
 })
 
+.factory('Stat', function( $http ){
+
+  var getArchetypes = function(){
+    return $http({
+      method: 'GET',
+      url: '/api/archetypes'
+    })
+    .then( function( resp ){
+      return resp.data;
+    })
+  }
+  var getStatsByType = function( type ){
+    //This will accept an ID to refer to type ID, or a string
+    return $http({
+      method: 'GET',
+      url: '/api/stats/type/' + type
+    })
+    .then( function( resp ){
+      return resp.data; 
+    })
+  }
+  var getMonsters = function(){
+    return $http({
+      method: 'GET',
+      url: 'api/monsters'
+    })
+    .then( function( resp){
+      return resp.data;
+    })
+  }
+  var getMonstersByType = function( type ){
+    return $http({
+      method: 'GET',
+      url: 'api/monsters/type/' + type
+    })
+    .then( function(resp){
+      return resp.data;
+    })
+  }
+  var getMonsterTypes = function(){
+    return $http({
+      method: 'GET',
+      url: 'api/monstertypes'
+    })
+    .then( function( resp){
+      return resp.data;
+    })
+  }
+  
+  return{
+    getArchetypes,
+    getMonsters,
+    getMonsterTypes,
+    getMonstersByType,
+    getStatsByType
+  }
+})
+
 .factory( 'Character', function( $http ) {
   var create = function( char ) {
     return $http({

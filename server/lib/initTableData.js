@@ -1,7 +1,9 @@
 'use strict';
 
 module.exports = function( models ) {
-  /* Permissions */
+  
+   /* Permissions */
+  
   models.Permission.findOrCreate({ 
     where: {
       name: 'Mortal',
@@ -23,7 +25,10 @@ module.exports = function( models ) {
       writeAll: true,
     }
   });
+  
+  
   /* Archetypes */
+  
   const archetypes = [
     'Architect',
     'Autocrat',
@@ -68,13 +73,16 @@ module.exports = function( models ) {
     'Trickster',
     'Visionary'
   ];
+  
   archetypes.forEach( function( archetype ) {
     models.Archetype.findOrCreate({
       where: {
         name: archetype
       }
     });
-  })
+  }) 
+
+  
   // todo: bulk-add stat types
   const stats = [
     {
@@ -186,7 +194,23 @@ module.exports = function( models ) {
     {
       name: 'advantages',
       rest: [
-        { name: 'backgrounds' },
+        { name: 'backgrounds',
+          stats: [
+            'Haven',
+            'Retainer',
+            'Allies',
+            'Contacts',
+            'Fame',
+            'Influence',
+            'Resources',
+            'Generation',
+            'Herd',
+            'Rituals',
+            'Black Hand Membership',
+            'Majordomo',
+            'Family Member'
+          ],
+        },
         {
           name: 'virtues',
           stats: [
@@ -284,19 +308,19 @@ module.exports = function( models ) {
             { 
               name: 'merits',
               stats: [
-                'acute hearing',
-                'common sense',
-                'harmless',
-                'deceptive aura',
+              {name: 'acute hearing', values: [1] },
+              {name: 'common sense', values: [1] },
+              {name: 'harmless', values: [1] },
+              {name: 'deceptive aura', values: [1] }
               ]
             },
             { 
               name: 'flaws',
               stats: [
-                'bad sight',
-                'nightmares',
-                'dark secret',
-                'repulsed by garlic',
+              { name: 'bad sight', values: [-1,-3] },
+              { name: 'nightmares', values: [-1] },
+              { name: 'dark secret', values: [-1]},
+              { name: 'repulsed by garlic', values: [-1] }
               ],
             },
           ],
@@ -304,17 +328,35 @@ module.exports = function( models ) {
       ],
     },
   ];
-  const addStat = function( type, stat ) {
-    const id = type.get( 'id' );
+  
+ const quirkValues = [
+   { name: 'scaling merit', value: '1 2 3 4 5' },
+   { name: 'scaling flaw', value: '-1 -2 -3 -4 -5'}
+ ]
+ 
+const addStat = function( type, stat ) {
+  const id = type.get( 'id' );
 
-    models.Stat.findOrCreate({
-      where: {
-        name: stat.name || stat,
-        stat_type_id: id,
-        rarity: stat.rarity || 0,
-      }
-    })
-  };
+  models.Stat.findOrCreate({
+    where: {
+      name: stat.name || stat,
+      stat_type_id: id,
+      rarity: stat.rarity || 0,
+    }
+  })
+  .then( function( stat ){
+    //if it has values to assign 
+    if( stat.values ){
+      stat.values.forEach( function( value ){
+        models.Quirks.findOrCreate({
+          where: 
+          { stat_id: stat.id, value: value }
+        })
+      })
+    }  
+  })
+};
+  
   const addTypes = function( types, prevID ) {
     // TODO: Refactor forEaches to use promise.each
     types.forEach( function( type ) {
@@ -336,7 +378,6 @@ module.exports = function( models ) {
       })
     });
   }
-  addTypes( stats, null );
   // todo: bulk-add spreads
   const spreads = [
     [7, 5, 3],
@@ -358,8 +399,118 @@ module.exports = function( models ) {
       }
     })
   });
-
-
+  
+  const monsters = [
+    { 
+      name: 'Vampire',
+      attribute_spread_id: 1,
+      ability_spread_id: 3,
+      power_spread_id: 5,
+      powers: [{name: 'Dominate'}, {name: 'Celerity'}],
+      children: [
+        {
+        name: 'Assamite',
+        children: [
+        {name:'Sorcerer'}, {name:'Vizier'}, {name:'Warrior'}]
+        },
+        {
+          name: 'Brujah',
+          powers: [{name:'Presence'}, {name:'Potence'}, {name:'Celerity'}]
+        },
+        {
+          name: 'Cappadocian',
+          children: [{name:'Samedi'}, {name:'Harbinger of Skulls'}]
+        },
+        {
+          name: 'Gangrel',
+          children: [{name:'Coyote'}, {name:'Outlander'}]
+        },
+        {
+          name: 'Gargoyle',
+        },
+        {
+          name: 'Lasombra',
+          children: [{name:'Lasombra'}, {name:'Kiasyd'}]
+        },
+        {
+          name: 'Malkavian',
+          children: [{name:'Malkavian'}, {name:'Ananke'}, {name:'Knight Of The Moon'}]
+        },
+        {
+          name: 'Nosferatu',
+        },
+        {
+          name: 'Ravnos',
+        },
+        {
+          name: 'Salubri',
+          children: [{name:'Healer'},{name:'Fury'}]
+        },
+        {
+          name: 'Setite',
+          children: [{name:'Follower of Set'}, {name:'Serpent of the Light'}]
+        },
+        {
+          name: 'Toreador',
+          children: [{name:'Volgirre'},{name:'Ishtarri'},{name:'Toreador'}]
+        },
+        {
+          name:'Tremere',
+          monsters:[{name:'Tremere'},{name:'Telyav'}]
+        },
+        {
+          name: 'Tzimisce',
+        },
+        {
+          name: 'Ventrue',
+          children: [{name:'Ventrue'},{name:'Crusader'}]
+        }
+      ]
+    },
+    {
+      name: 'Ghoul',
+      attribute_spread_id: 2,
+      ability_spread_id: 3,
+      power_spread_id: 8
+    },
+    {
+      name: 'Revenant',
+      attribute_spread_id: 2,
+      ability_spread_id: 3,
+      power_spread_id: 8,
+      children: [{name: 'Obertus'}, {name:'Bratovich'}, {name:'Grimaldi'}, {name:'Zantosa'}, {name:'Ducheski'}]
+    }
+  ];
+  
+  const addMonster = function( monster,id ){
+    addMonsters( monster, id );
+  };
+  
+  const addMonsters = function( monsters, id ){
+    monsters.forEach( function( monster ){
+      models.Monster.findOrCreate({
+        where: {
+          name: monster.name,
+          parentId: id
+        }
+      })
+      .spread( function( created ){   
+        if( monster.children ){
+          addMonster( monster.children , created.id );
+        }
+        
+      })
+    })   
+  };
+  
+  const addPower = function( power ){
+    addPowers( power )
+  };
+  
+  const addPowers = function( monsters ){
+  //Associate the powers and monsters 
+  }
+  
   models.Character.findOrCreate({
     where: {
       name: 'Bob Ross',
@@ -383,7 +534,38 @@ module.exports = function( models ) {
       });
     });
   })
-  // todo: bulk-add monsters
+  
+  const createChargenData = function( monsterlist, statlist ){
+    var createStats = new Promise( function( resolve, reject ){
+      addTypes( statlist );
+    });
+    
+    var createMonsters = new Promise( function( resolve, reject ){
+      addMonsters( monsterlist, null );
+    });
+    
+    createStats
+    .then( function(){
+      createMonsters
+      .then( function(){
+        addPowers( monsterlist );
+      });      
+    });
+  } 
+  
+  createChargenData( monsters, stats );
+ 
+  
+  
+  /*
+  Table1.find({…}).
+  then(function(a_thing_from_table_1){
+    Table2.find({…}).
+    then(function(a_thing_from_table_2){
+      a_thing_from_table_1.addTable2(a_thing_from_table_2); 
+    }) 
+  })  
+  */
     // mortal
       // werewolf
         // subtype
